@@ -122,6 +122,16 @@
     outline-offset: 2px;
     border-radius: 4px;
   }
+  /* Ensure text on dark surfaces stays light even when nested elements
+     (h1-h6, .serif utility) declare their own ink color. */
+  .text-on-dark,
+  .text-on-dark :is(h1, h2, h3, h4, h5, h6),
+  .text-on-dark .serif {
+    color: var(--on-dark);
+  }
+  .text-on-dark-soft {
+    color: var(--on-dark-soft);
+  }
 }
 
 @utility serif {
