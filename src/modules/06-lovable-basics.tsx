@@ -87,24 +87,29 @@ export default function Mod06() {
       <Section title="기능 영역 한눈에">
         <Warning>인터페이스 명칭과 위치는 시간에 따라 바뀔 수 있습니다. 흐름과 역할만 익혀 두세요.</Warning>
         <div className="mt-4 space-y-8">
-          <InteractiveImageHotspots
-            sectionId="lovable-dashboard-hotspot-section"
-            sectionTitle="러버블 대시보드"
-            sectionDescription="새 프로젝트를 만들고, 기존 작업으로 돌아오는 시작 화면입니다."
-            imageSrc={lovableDashboard.url}
-            imageAlt="러버블 대시보드 화면"
-            hotspots={dashboardHotspots}
-          />
-          <InteractiveImageHotspots
-            sectionId="lovable-interface-hotspot-section"
-            sectionTitle="러버블 작업 인터페이스"
-            sectionDescription="대화로 앱을 만들고, 결과를 즉시 미리보기 하는 화면입니다."
-            imageSrc={lovableInterface.url}
-            imageAlt="러버블 작업 인터페이스 화면"
-            hotspots={interfaceHotspots}
-          />
+          <figure>
+            <img
+              src={lovableDashboard.url}
+              alt="러버블 대시보드 주요 기능 안내"
+              className="w-full h-auto rounded-lg border border-hairline"
+            />
+            <figcaption className="text-xs text-muted-text mt-2 text-center">
+              러버블 대시보드 — 새 프로젝트를 만들고 기존 작업으로 돌아오는 시작 화면
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src={lovableInterface.url}
+              alt="러버블 작업 인터페이스 안내"
+              className="w-full h-auto rounded-lg border border-hairline"
+            />
+            <figcaption className="text-xs text-muted-text mt-2 text-center">
+              러버블 작업 인터페이스 — 대화로 앱을 만들고, 결과를 즉시 미리보기
+            </figcaption>
+          </figure>
         </div>
       </Section>
+
 
 
       <Section title="6단계 제작 파이프라인">
