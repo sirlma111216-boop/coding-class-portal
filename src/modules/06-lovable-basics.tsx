@@ -13,22 +13,41 @@ import {
   PracticePanel,
   Warning,
 } from "@/components/module-ui";
+import {
+  InteractiveImageHotspots,
+  type Hotspot,
+} from "@/components/interactive-image-hotspots";
+import lovableInterface from "@/assets/lovable-interface.png.asset.json";
+import lovableDashboard from "@/assets/lovable-dashboard.png.asset.json";
 
 const m = moduleByNumber(6)!;
 
-const areas = [
-  ["프로젝트 대시보드", "새 프로젝트를 만들고 기존 작업으로 돌아옵니다."],
-  ["채팅 / Agent 작업 영역", "대화로 만들고 수정합니다."],
-  ["Plan mode", "큰 변경 전에 계획을 먼저 잡습니다."],
-  ["Preview", "실제 화면을 즉시 확인합니다."],
-  ["Visual edits", "요소를 선택해 직접 수정합니다."],
-  ["Code editor", "필요할 때만 코드를 확인합니다."],
-  ["Project knowledge", "프로젝트의 목적과 규칙을 기억시킵니다."],
-  ["History", "이전 버전으로 되돌립니다."],
-  ["Publish", "공유 가능한 웹앱으로 배포합니다."],
-  ["GitHub 연결", "코드를 저장하고 확장합니다."],
-  ["Cloud / Supabase", "데이터·인증·secret을 안전하게 연결합니다."],
+const interfaceHotspots: Hotspot[] = [
+  { id: "title", title: "프로젝트 제목", description: "현재 작업 중인 프로젝트 이름과 상태를 보여줍니다.", left: 0.3, top: 0.5, width: 9.5, height: 4, color: "#8b5cf6" },
+  { id: "preview-mode", title: "Preview 모드", description: "편집 결과를 미리보기 상태로 확인합니다.", left: 50.8, top: 0.5, width: 3, height: 3.2, color: "#f97316" },
+  { id: "page", title: "페이지 선택", description: "현재 보고 있는 페이지를 선택하거나 바꿉니다.", left: 73.5, top: 0.5, width: 9, height: 3.2, color: "#eab308" },
+  { id: "share", title: "Share", description: "프로젝트를 다른 사람과 공유합니다.", left: 93.5, top: 0.5, width: 3.2, height: 3.2, color: "#ec4899" },
+  { id: "publish", title: "Publish", description: "완성한 앱을 공유 가능한 웹앱으로 배포합니다.", left: 96.9, top: 0.5, width: 3, height: 3.2, color: "#3b82f6" },
+  { id: "chat", title: "채팅 / Agent 작업 영역", description: "대화로 앱을 만들고 수정하는 공간입니다.", left: 10.2, top: 4.5, width: 39.5, height: 82, color: "#10b981" },
+  { id: "prompt", title: "프롬프트 입력창", description: "요구사항을 입력해 다음 작업을 지시합니다.", left: 10.2, top: 88, width: 39.5, height: 11, color: "#3b82f6" },
+  { id: "preview", title: "Preview", description: "실제 화면이 어떻게 보이는지 즉시 확인합니다.", left: 50, top: 4.5, width: 49.7, height: 89, color: "#ef4444" },
+  { id: "visual-edits", title: "Visual edits", description: "화면 요소를 직접 선택해 수정할 때 사용합니다.", left: 72.5, top: 95, width: 8, height: 4.5, color: "#8b5cf6" },
 ];
+
+const dashboardHotspots: Hotspot[] = [
+  { id: "workspace", title: "워크스페이스 선택", description: "현재 작업 중인 워크스페이스를 선택합니다.", left: 0.3, top: 4, width: 10, height: 3.7, color: "#f97316" },
+  { id: "search", title: "Search", description: "프로젝트나 필요한 항목을 빠르게 찾습니다.", left: 0.3, top: 10.8, width: 10, height: 2.8, color: "#3b82f6" },
+  { id: "resources", title: "Resources", description: "가이드와 참고 자료를 확인합니다.", left: 0.3, top: 13.9, width: 10, height: 2.8, color: "#ec4899" },
+  { id: "connectors", title: "Connectors", description: "외부 서비스나 도구를 연결합니다.", left: 0.3, top: 16.8, width: 10, height: 2.8, color: "#06b6d4" },
+  { id: "dashboard", title: "프로젝트 대시보드", description: "새 프로젝트를 만들고 기존 작업으로 돌아오는 시작 화면입니다.", left: 10.7, top: 0, width: 89, height: 60, color: "#3b82f6" },
+  { id: "new-input", title: "새 프로젝트 생성 입력창", description: "무엇을 만들지 입력하면 러버블이 프로젝트 생성을 시작합니다.", left: 42, top: 20.5, width: 27, height: 9, color: "#3b82f6" },
+  { id: "build", title: "Build", description: "입력한 요구사항으로 새 프로젝트 생성을 실행합니다.", left: 61.5, top: 24, width: 3.5, height: 4.5, color: "#22c55e" },
+  { id: "filter", title: "프로젝트 필터 탭", description: "프로젝트를 조건에 따라 필터링하여 볼 수 있습니다.", left: 12.5, top: 63, width: 22, height: 5.5, color: "#3b82f6" },
+  { id: "list", title: "프로젝트 목록", description: "이전에 만들었던 프로젝트를 열고 이어서 작업합니다.", left: 12.5, top: 69.5, width: 80, height: 22, color: "#ec4899" },
+  { id: "published", title: "Published 표시", description: "이미 배포된 프로젝트임을 보여줍니다.", left: 30.7, top: 84.5, width: 3.8, height: 3, color: "#eab308" },
+];
+
+
 
 const pipeline = [
   "문제 정의",
@@ -95,15 +114,26 @@ export default function Mod06() {
 
       <Section title="기능 영역 한눈에">
         <Warning>인터페이스 명칭과 위치는 시간에 따라 바뀔 수 있습니다. 흐름과 역할만 익혀 두세요.</Warning>
-        <ul className="grid sm:grid-cols-2 gap-3 mt-4">
-          {areas.map(([t, d]) => (
-            <li key={t} className="bg-surface-card rounded-lg p-4">
-              <p className="font-semibold text-ink mb-1">{t}</p>
-              <p className="text-sm text-body">{d}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-4 space-y-8">
+          <InteractiveImageHotspots
+            sectionId="lovable-dashboard-hotspot-section"
+            sectionTitle="러버블 대시보드"
+            sectionDescription="새 프로젝트를 만들고, 기존 작업으로 돌아오는 시작 화면입니다."
+            imageSrc={lovableDashboard.url}
+            imageAlt="러버블 대시보드 화면"
+            hotspots={dashboardHotspots}
+          />
+          <InteractiveImageHotspots
+            sectionId="lovable-interface-hotspot-section"
+            sectionTitle="러버블 작업 인터페이스"
+            sectionDescription="대화로 앱을 만들고, 결과를 즉시 미리보기 하는 화면입니다."
+            imageSrc={lovableInterface.url}
+            imageAlt="러버블 작업 인터페이스 화면"
+            hotspots={interfaceHotspots}
+          />
+        </div>
       </Section>
+
 
       <Section title="6단계 제작 파이프라인">
         <ol className="grid sm:grid-cols-3 lg:grid-cols-6 gap-2">
