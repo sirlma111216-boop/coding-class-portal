@@ -48,19 +48,6 @@ const dashboardHotspots: Hotspot[] = [
 ];
 
 
-const areas = [
-  ["프로젝트 대시보드", "새 프로젝트를 만들고 기존 작업으로 돌아옵니다."],
-  ["채팅 / Agent 작업 영역", "대화로 만들고 수정합니다."],
-  ["Plan mode", "큰 변경 전에 계획을 먼저 잡습니다."],
-  ["Preview", "실제 화면을 즉시 확인합니다."],
-  ["Visual edits", "요소를 선택해 직접 수정합니다."],
-  ["Code editor", "필요할 때만 코드를 확인합니다."],
-  ["Project knowledge", "프로젝트의 목적과 규칙을 기억시킵니다."],
-  ["History", "이전 버전으로 되돌립니다."],
-  ["Publish", "공유 가능한 웹앱으로 배포합니다."],
-  ["GitHub 연결", "코드를 저장하고 확장합니다."],
-  ["Cloud / Supabase", "데이터·인증·secret을 안전하게 연결합니다."],
-];
 
 const pipeline = [
   "문제 정의",
