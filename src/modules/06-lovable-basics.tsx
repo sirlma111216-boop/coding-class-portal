@@ -53,6 +53,7 @@ const checklist = [
 
 export default function Mod06() {
   const [filled, setFilled] = useState<Record<string, boolean>>({});
+  const [zoomed, setZoomed] = useState<{ src: string; alt: string } | null>(null);
   const filledCount = Object.values(filled).filter(Boolean).length;
   const readiness = Math.round((filledCount / checklist.length) * 100);
 
@@ -88,27 +89,66 @@ export default function Mod06() {
         <Warning>인터페이스 명칭과 위치는 시간에 따라 바뀔 수 있습니다. 흐름과 역할만 익혀 두세요.</Warning>
         <div className="mt-4 space-y-8">
           <figure>
-            <img
-              src={lovableDashboard.url}
-              alt="러버블 대시보드 주요 기능 안내"
-              className="w-full h-auto rounded-lg border border-hairline"
-            />
+            <button
+              type="button"
+              onClick={() => setZoomed({ src: lovableDashboard.url, alt: "러버블 대시보드 주요 기능 안내" })}
+              className="block w-full group cursor-zoom-in"
+              aria-label="러버블 대시보드 이미지 확대 보기"
+            >
+              <img
+                src={lovableDashboard.url}
+                alt="러버블 대시보드 주요 기능 안내"
+                className="w-full h-auto rounded-lg border border-hairline transition-opacity group-hover:opacity-90"
+              />
+            </button>
             <figcaption className="text-xs text-muted-text mt-2 text-center">
-              러버블 대시보드 — 새 프로젝트를 만들고 기존 작업으로 돌아오는 시작 화면
+              러버블 대시보드 — 새 프로젝트를 만들고 기존 작업으로 돌아오는 시작 화면 (클릭하면 확대됩니다)
             </figcaption>
           </figure>
           <figure>
-            <img
-              src={lovableInterface.url}
-              alt="러버블 작업 인터페이스 안내"
-              className="w-full h-auto rounded-lg border border-hairline"
-            />
+            <button
+              type="button"
+              onClick={() => setZoomed({ src: lovableInterface.url, alt: "러버블 작업 인터페이스 안내" })}
+              className="block w-full group cursor-zoom-in"
+              aria-label="러버블 작업 인터페이스 이미지 확대 보기"
+            >
+              <img
+                src={lovableInterface.url}
+                alt="러버블 작업 인터페이스 안내"
+                className="w-full h-auto rounded-lg border border-hairline transition-opacity group-hover:opacity-90"
+              />
+            </button>
             <figcaption className="text-xs text-muted-text mt-2 text-center">
-              러버블 작업 인터페이스 — 대화로 앱을 만들고, 결과를 즉시 미리보기
+              러버블 작업 인터페이스 — 대화로 앱을 만들고, 결과를 즉시 미리보기 (클릭하면 확대됩니다)
             </figcaption>
           </figure>
         </div>
       </Section>
+
+      {zoomed && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoomed.alt}
+          onClick={() => setZoomed(null)}
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out animate-in fade-in"
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setZoomed(null); }}
+            aria-label="닫기"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl flex items-center justify-center"
+          >
+            ✕
+          </button>
+          <img
+            src={zoomed.src}
+            alt={zoomed.alt}
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-[95vw] max-h-[90vh] w-auto h-auto object-contain rounded-lg shadow-2xl cursor-default"
+          />
+        </div>
+      )}
 
 
 
