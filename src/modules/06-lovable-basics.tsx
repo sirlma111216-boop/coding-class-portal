@@ -13,16 +13,11 @@ import {
   PracticePanel,
   Warning,
 } from "@/components/module-ui";
-import {
-  InteractiveImageHotspots,
-  type Hotspot,
-} from "@/components/interactive-image-hotspots";
-import lovableInterface from "@/assets/lovable-interface.png.asset.json";
-import lovableDashboard from "@/assets/lovable-dashboard.png.asset.json";
+import lovableInterface from "@/assets/lovable-interface-annotated.png.asset.json";
+import lovableDashboard from "@/assets/lovable-dashboard-annotated.png.asset.json";
 
 const m = moduleByNumber(6)!;
 
-const interfaceHotspots: Hotspot[] = [
   { id: "title", title: "프로젝트 제목", description: "현재 작업 중인 프로젝트 이름과 상태를 보여줍니다.", left: 0.3, top: 0.5, width: 9.5, height: 4, color: "#8b5cf6" },
   { id: "preview-mode", title: "Preview 모드", description: "편집 결과를 미리보기 상태로 확인합니다.", left: 50.8, top: 0.5, width: 3, height: 3.2, color: "#f97316" },
   { id: "page", title: "페이지 선택", description: "현재 보고 있는 페이지를 선택하거나 바꿉니다.", left: 73.5, top: 0.5, width: 9, height: 3.2, color: "#eab308" },
