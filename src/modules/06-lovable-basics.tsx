@@ -53,6 +53,7 @@ const checklist = [
 
 export default function Mod06() {
   const [filled, setFilled] = useState<Record<string, boolean>>({});
+  const [zoomed, setZoomed] = useState<{ src: string; alt: string } | null>(null);
   const filledCount = Object.values(filled).filter(Boolean).length;
   const readiness = Math.round((filledCount / checklist.length) * 100);
 
