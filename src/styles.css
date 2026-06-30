@@ -135,11 +135,13 @@
   border: 1px solid var(--hairline);
 }
 
-@utility spike::before {
-  content: "✦";
-  color: var(--ink);
-  margin-right: 0.4em;
-  font-size: 0.85em;
+@utility spike {
+  &::before {
+    content: "✦";
+    color: var(--ink);
+    margin-right: 0.4em;
+    font-size: 0.85em;
+  }
 }
 
 @media print {
