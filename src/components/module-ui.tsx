@@ -175,56 +175,14 @@ export function Warning({ children }: { children: ReactNode }) {
 }
 
 // ===== Completion checklist =====
-export function CompletionChecklist({
-  storageKey,
-  items,
-  title = "학습 확인",
-}: {
+export function CompletionChecklist(_props: {
   storageKey: string;
   items: string[];
   title?: string;
 }) {
-  // simple local toggles persisted per module
-  const [checked, setChecked] = useState<boolean[]>(() => {
-    if (typeof window === "undefined") return items.map(() => false);
-    try {
-      const raw = localStorage.getItem(storageKey);
-      if (raw) {
-        const arr = JSON.parse(raw) as boolean[];
-        if (arr.length === items.length) return arr;
-      }
-    } catch {}
-    return items.map(() => false);
-  });
-  const toggle = (i: number) => {
-    const next = checked.map((v, idx) => (idx === i ? !v : v));
-    setChecked(next);
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(next));
-    } catch {}
-  };
-  return (
-    <Section eyebrow={title}>
-      <ul className="space-y-2">
-        {items.map((t, i) => (
-          <li key={i}>
-            <label className="flex items-start gap-3 p-3 rounded-md hover:bg-surface-soft cursor-pointer">
-              <input
-                type="checkbox"
-                checked={checked[i]}
-                onChange={() => toggle(i)}
-                className="mt-1 accent-coral w-4 h-4"
-              />
-              <span className={checked[i] ? "text-muted-text line-through" : "text-body-strong"}>
-                {t}
-              </span>
-            </label>
-          </li>
-        ))}
-      </ul>
-    </Section>
-  );
+  return null;
 }
+
 
 // ===== Module navigation (prev / complete / next) =====
 export function ModuleNavigation({ module }: { module: Module }) {
