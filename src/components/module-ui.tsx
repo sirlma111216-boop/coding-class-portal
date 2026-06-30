@@ -58,25 +58,10 @@ export function Section({
 }
 
 // ===== Learning objectives =====
-export function LearningObjectives({ items }: { items: string[] }) {
-  return (
-    <Section eyebrow="이 모듈에서 할 수 있는 것">
-      <ul className="grid sm:grid-cols-2 gap-3">
-        {items.map((t, i) => (
-          <li
-            key={i}
-            className="flex gap-3 p-4 bg-surface-soft rounded-lg border border-hairline"
-          >
-            <span className="shrink-0 w-6 h-6 rounded-full bg-coral text-white text-xs font-medium inline-flex items-center justify-center mt-0.5">
-              {i + 1}
-            </span>
-            <span className="text-body-strong">{t}</span>
-          </li>
-        ))}
-      </ul>
-    </Section>
-  );
+export function LearningObjectives(_props: { items: string[] }) {
+  return null;
 }
+
 
 // ===== Key message callout =====
 export function KeyMessage({ children }: { children: ReactNode }) {
@@ -157,27 +142,10 @@ export function CopyBlock({
 }
 
 // ===== Instructor tip =====
-export function InstructorTip({ children, title = "강사용 진행 포인트" }: { children: ReactNode; title?: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border border-hairline rounded-lg my-6 bg-surface-soft no-print">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left"
-        aria-expanded={open}
-      >
-        <span className="flex items-center gap-2 font-semibold text-ink">
-          <Lightbulb className="w-4 h-4 text-amber" />
-          {title}
-        </span>
-        <ChevronDown
-          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-      {open && <div className="px-5 pb-5 text-sm leading-relaxed">{children}</div>}
-    </div>
-  );
+export function InstructorTip(_props: { children: ReactNode; title?: string }) {
+  return null;
 }
+
 
 // ===== Practice panel =====
 export function PracticePanel({
