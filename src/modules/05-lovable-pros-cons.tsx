@@ -212,18 +212,6 @@ export default function Mod05() {
             </div>
 
             <ul className="space-y-3">
-              <li className="bg-error/15 border border-error/30 rounded-lg p-3">
-                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1 flex-wrap">
-                  <CreditCard className="w-4 h-4 text-error mt-0.5 shrink-0" />
-                  <span className="flex-1">크레딧 소모가 매우 빠를 수 있다</span>
-                  <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-pill bg-error text-white font-medium">
-                    가장 큰 단점
-                  </span>
-                </p>
-                <p className="text-xs text-on-dark-soft leading-relaxed">
-                  기능 추가, 오류 수정, 화면 재생성을 반복하다 보면 결제한 크레딧이 빠르게 줄어들 수 있다.
-                </p>
-              </li>
               <li>
                 <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
                   <TrendingUp className="w-4 h-4 text-warning mt-0.5 shrink-0" />
