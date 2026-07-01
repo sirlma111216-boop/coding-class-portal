@@ -106,6 +106,8 @@ const labels: Record<Verdict, string> = {
 
 export default function Mod05() {
   const [picks, setPicks] = useState<Record<number, Verdict | null>>({});
+  const [showCriteria, setShowCriteria] = useState(false);
+  const allAnswered = projects.every((_, i) => picks[i]);
 
   return (
     <article className="max-w-4xl mx-auto px-5 sm:px-8 py-10">
