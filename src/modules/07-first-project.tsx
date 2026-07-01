@@ -222,6 +222,22 @@ Make the next learning action specific and immediately possible in class.
 Keep all visible UI and generated feedback in Korean.
 Do not change the design or unrelated features.`;
 
+const REV3_KO = `현재 결과 카드 구조는 유지하고, AI 피드백 품질만 개선해줘.
+
+피드백은 다음을 근거로 작성:
+- 학습 목표
+- 선택한 형성평가 질문
+- 학생 답변
+- 선택한 도달 수준
+
+결과는 정확히 4개 영역으로 구성:
+- 격려 / 잘한 점 / 보완할 점 / 다음 학습 행동
+
+막연한 칭찬, 근거 없는 단정, 판단적인 표현, 다른 학생과의 비교는 피할 것.
+다음 학습 행동은 구체적이고 수업에서 바로 실행 가능한 것으로 만들 것.
+
+모든 화면 UI와 생성 피드백은 한국어로 유지하고, 디자인이나 관련 없는 기능은 바꾸지 마.`;
+
 const REV4 = `Keep the current features and improve only usability and testing.
 
 Add:
