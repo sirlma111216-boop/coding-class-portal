@@ -140,15 +140,6 @@ export default function Mod05() {
             </div>
 
             <ul className="space-y-3">
-              <li className="bg-surface-cream-strong border border-hairline rounded-lg p-3">
-                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
-                  <Zap className="w-4 h-4 text-coral mt-0.5 shrink-0" />
-                  풀스택 제작이 쉽다
-                </p>
-                <p className="text-xs text-body leading-relaxed">
-                  화면 제작뿐 아니라 데이터베이스, 인증, 백엔드 기능, 배포까지 단계적으로 연결할 수 있다.
-                </p>
-              </li>
               <li>
                 <p className="font-semibold text-ink flex items-start gap-2 mb-1">
                   <Database className="w-4 h-4 text-teal mt-0.5 shrink-0" />
