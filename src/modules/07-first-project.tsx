@@ -499,7 +499,7 @@ export default function Mod07() {
         <p className="text-sm text-body mb-3">
           아래 영문 프롬프트 전체를 복사해 Lovable의 새 프로젝트 입력창에 붙여 넣으세요. 프롬프트는 영어지만 완성되는 앱의 화면과 결과는 모두 한국어입니다.
         </p>
-        <CopyBlock label="첫 프롬프트 (영문)" text={STARTER} />
+        <CopyBlock label="첫 프롬프트" text={STARTER} korean={STARTER_KO} />
       </Section>
 
       {/* Why this order */}
