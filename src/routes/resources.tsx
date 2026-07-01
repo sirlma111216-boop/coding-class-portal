@@ -155,7 +155,53 @@ const M7_DECISION = `체크 항목:
 - 2~3개 → 먼저 AI 챗봇에서 요구사항을 정리한 뒤 Lovable에 입력.
 - 4개 이상 → 구조적 수정. 현재 상태/원하는 구조/유지 조건을 정리해 AI 챗봇에서 Lovable용 프롬프트를 먼저 작성.`;
 
+const SIMPLE_INPUTS = `1. 학교급 — 초등학교 / 중학교 / 고등학교
+2. 교과 — 예: 과학
+3. 학년 — 예: 중학교 2학년
+4. 학습 주제 — 예: 전류와 전압의 관계
+5. 형성평가 질문 방식 — 설명하기 / 이유 말하기 / 비교하기 / 예측하기 / 적용하기 (한 가지 선택)`;
+
+const SIMPLE_PROMPT_STRUCTURE = `Create a simple Korean-language formative assessment feedback web app for a teacher.
+
+Teaching context:
+- School level: [학교급]
+- Subject: [교과]
+- Grade: [학년]
+- Learning topic: [학습 주제]
+- Question type: [질문 방식]
+
+Important:
+- All visible UI text must be in Korean.
+- One page only. Use Lovable AI. No student names.
+
+Flow: question → student response → generate feedback → copy result.
+
+Include: one editable question, one response text area, "예시 답변 넣기", "피드백 만들기", feedback area, "결과 복사".
+
+Feedback sections (only 3, concise): 1. 잘한 점 2. 보완할 점 3. 다음 학습 한 가지
+
+Notice: "학생 실명과 개인정보를 입력하지 마세요. AI가 만든 피드백은 교사가 최종 확인해야 합니다."
+
+Do not add: login, database, student accounts, class management, file upload, ranking, multiple pages, complex settings.`;
+
+const SIMPLE_SUCCESS = `1. 앱 화면이 열린다.
+2. 학생 답변을 입력할 수 있다.
+3. 피드백이 세 영역으로 나온다.
+4. 결과를 복사할 수 있다.
+
+디자인이 완벽하지 않아도 네 가지가 작동하면 오늘의 실습은 성공입니다.`;
+
+const SIMPLE_SMALL_FIX = `예시 답변 넣기 버튼이 작동하지 않습니다. 다른 화면은 바꾸지 말고 이 버튼만 수정해줘.`;
+
+const SIMPLE_STRUCT_FIX = `현재 앱 화면, 문제점, 원하는 흐름을 설명할 테니 Lovable에 붙여 넣을 수정 프롬프트를 작성해줘. 앱 UI는 한국어로 유지하고 다른 기능은 변경하지 않도록 해줘.`;
+
 const resources: Resource[] = [
+  { id: "simple-inputs", title: "수업 정보 입력 항목 안내", when: "첫 번째 완성 경험을 시작할 때", category: "첫 프로젝트", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "simple", body: SIMPLE_INPUTS },
+  { id: "simple-prompt", title: "영문 프롬프트 생성 기본 구조", when: "생성된 프롬프트 구조를 확인할 때", category: "첫 프로젝트", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "simple", body: SIMPLE_PROMPT_STRUCTURE },
+  { id: "simple-success", title: "실습 성공 기준 4개", when: "완성 여부를 판단할 때", category: "테스트", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "simple", body: SIMPLE_SUCCESS },
+  { id: "simple-small-fix", title: "작은 문제 수정 요청 예시", when: "버튼·문구 같은 작은 수정이 필요할 때", category: "오류 수정", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "simple", body: SIMPLE_SMALL_FIX },
+  { id: "simple-struct-fix", title: "구조적 수정 요청 예시", when: "흐름이나 여러 기능을 함께 바꿔야 할 때", category: "판단 도우미", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "simple", body: SIMPLE_STRUCT_FIX },
+
   { id: "m7-starter", title: "첫 프롬프트 — 전체 흐름 만들기", when: "새 프로젝트를 시작할 때", category: "첫 프로젝트", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "feedback", body: M7_STARTER },
   { id: "m7-rev1", title: "① 형성평가 질문 품질 개선", when: "질문이 학습 목표와 어긋날 때", category: "첫 프로젝트", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "feedback", body: M7_REV1 },
   { id: "m7-rev2", title: "② 학생 답변 흐름 개선", when: "예시 답변/직접 입력 흐름을 다듬을 때", category: "첫 프로젝트", moduleSlug: "07-first-project", moduleLabel: "Module 7", bundle: "feedback", body: M7_REV2 },
