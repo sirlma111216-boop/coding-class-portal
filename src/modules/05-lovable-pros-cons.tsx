@@ -11,7 +11,7 @@ import {
   ModuleNavigation,
   PracticePanel,
 } from "@/components/module-ui";
-import { Check, X, Wrench, Sparkles, Zap, Database, Rocket, MessageSquare, Github, BrainCircuit, CreditCard, TrendingUp, Server, ShieldAlert, AlertCircle, AlertTriangle } from "lucide-react";
+import { Check, X, Wrench, Sparkles, Database, Rocket, MessageSquare, Github, BrainCircuit, TrendingUp, Server, ShieldAlert, AlertCircle, AlertTriangle } from "lucide-react";
 
 const m = moduleByNumber(5)!;
 
