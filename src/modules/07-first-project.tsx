@@ -158,6 +158,18 @@ Show a small Korean question-type label for each generated question.
 Keep all visible UI text in Korean.
 Do not change unrelated pages, design, or features.`;
 
+const REV1_KO = `현재 앱 구조는 유지하고, 형성평가 질문 생성 부분만 개선해줘.
+
+생성되는 질문은:
+- 학습 목표와 직접 연결될 것
+- 단순 암기가 아니라 이해도를 확인할 것
+- 1~3문장으로 답할 수 있을 것
+- 선택한 학년 수준의 언어를 사용할 것
+- 설명, 예측, 비교, 근거 제시 등 다양한 유형을 포함할 것
+
+각 질문 옆에 짧은 한국어 질문 유형 라벨을 표시해줘.
+모든 화면 UI는 한국어로 유지하고, 관련 없는 페이지·디자인·기능은 바꾸지 마.`;
+
 const REV2 = `Keep the current app structure and improve only the student response step.
 
 Show two clearly separated options:
