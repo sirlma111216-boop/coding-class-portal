@@ -188,6 +188,23 @@ Before generating feedback, show the selected question and student response toge
 Keep all visible UI text in Korean.
 Do not change unrelated features.`;
 
+const REV2_KO = `현재 앱 구조는 유지하고, 학생 답변 단계만 개선해줘.
+
+다음 두 옵션을 명확히 구분해 보여줘:
+1) 예시 학생 답변 생성
+2) 학생 답변 직접 입력
+
+예시 답변 생성 시:
+- 선택된 형성평가 질문을 사용하고
+- 선택된 도달 수준을 반영하며
+- 선택적으로 사실적인 오개념을 하나 포함할 수 있게 하고
+- 간결한 한국어 답변 1개를 생성하며
+- 학생 이름은 절대 포함하지 말 것.
+
+피드백 생성 전에, 선택한 질문과 학생 답변을 함께 보여주는 확인 카드를 표시해줘.
+
+모든 화면 UI는 한국어로 유지하고, 관련 없는 기능은 바꾸지 마.`;
+
 const REV3 = `Keep the current result card structure and improve only the AI feedback quality.
 
 The feedback must be based on:
