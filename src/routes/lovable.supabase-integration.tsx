@@ -110,7 +110,7 @@ const STEPS: Step[] = [
     title: "Supabase 조직 선택 후 Authorize Lovable",
     img: step4,
     imgAlt: "Authorize Lovable",
-    layout: "wide",
+    layout: "portrait",
     what: "연결할 Organization 선택 후 “Authorize Lovable” 버튼",
     happens:
       "Lovable이 선택한 Supabase 조직의 프로젝트와 백엔드 기능에 접근할 수 있도록 권한을 부여합니다.",
