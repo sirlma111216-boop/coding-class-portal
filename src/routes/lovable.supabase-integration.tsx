@@ -384,11 +384,13 @@ function SupabaseIntegrationPage() {
                 <span className={`serif text-3xl ${activeStep === s.id ? "text-coral" : "text-ink"}`}>{s.n}</span>
                 <h3 className="serif text-xl leading-tight">{s.title}</h3>
               </div>
-              <div className="grid md:grid-cols-2 gap-6 items-start">
+              <div className={s.layout === "portrait" ? "grid md:grid-cols-[minmax(0,260px)_1fr] gap-6 items-start" : "space-y-5"}>
                 <button
                   type="button"
                   onClick={() => setZoom({ url: s.img.url, alt: s.imgAlt })}
-                  className="block w-full rounded-lg overflow-hidden bg-canvas border border-hairline hover:border-coral cursor-zoom-in"
+                  className={`block rounded-lg overflow-hidden bg-canvas border border-hairline hover:border-coral cursor-zoom-in ${
+                    s.layout === "portrait" ? "w-full max-w-[260px] mx-auto md:mx-0" : "w-full"
+                  }`}
                   aria-label={`${s.imgAlt} 확대`}
                 >
                   <img src={s.img.url} alt={s.imgAlt} className="w-full h-auto" />
