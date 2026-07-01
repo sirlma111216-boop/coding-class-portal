@@ -29,6 +29,7 @@ type Step = {
   title: string;
   img: { url: string };
   imgAlt: string;
+  layout: "portrait" | "wide";
   what?: string;
   happens?: string;
   tip?: string;
@@ -43,6 +44,7 @@ const STEPS: Step[] = [
     title: "프로젝트 이름 옆 화살표 열기",
     img: step1,
     imgAlt: "프로젝트 메뉴 열기",
+    layout: "portrait",
     what: "프로젝트 제목 오른쪽에 있는 ▼ 버튼",
     happens: "프로젝트 설정과 연결 기능을 선택할 수 있는 메뉴가 열립니다.",
     tip: "대시보드의 왼쪽 메뉴가 아니라, 현재 프로젝트 안에서 프로젝트 이름 옆 화살표를 누르는 단계입니다.",
@@ -53,6 +55,7 @@ const STEPS: Step[] = [
     title: "Connectors 메뉴 선택",
     img: step1,
     imgAlt: "Connectors 메뉴",
+    layout: "portrait",
     what: "열린 메뉴에서 “Connectors” 항목",
     happens: "Lovable과 연결할 수 있는 외부 서비스 목록으로 이동합니다.",
     tip: "Connector는 Lovable과 외부 서비스를 연결하는 통로입니다.",
@@ -63,6 +66,7 @@ const STEPS: Step[] = [
     title: "검색창에 Supabase 입력",
     img: step2,
     imgAlt: "Supabase 검색",
+    layout: "wide",
     what: "왼쪽 위 검색창에 “supabase” 입력",
     happens: "많은 Connector 중 Supabase 항목만 빠르게 찾을 수 있습니다.",
     tip: "전체 이름을 입력하지 않아도 ‘supa’ 정도만 입력해도 검색됩니다.",
@@ -73,6 +77,7 @@ const STEPS: Step[] = [
     title: "Supabase Connector 선택",
     img: step2,
     imgAlt: "Supabase 카드 선택",
+    layout: "wide",
     what: "“Connect an external Supabase project”라고 적힌 Supabase 카드",
     happens: "Supabase 연결 상세 화면으로 이동합니다.",
     caution:
@@ -84,6 +89,7 @@ const STEPS: Step[] = [
     title: "Connect Supabase 버튼 누르기",
     img: step3,
     imgAlt: "Connect Supabase 버튼",
+    layout: "wide",
     what: "상세 화면 오른쪽의 “Connect Supabase” 버튼",
     happens: "Lovable이 Supabase의 로그인 및 권한 승인 화면으로 이동시킵니다.",
     caution: "이 버튼만으로 Supabase 계정이 자동 생성되는 것은 아닙니다.",
@@ -104,6 +110,7 @@ const STEPS: Step[] = [
     title: "Supabase 조직 선택 후 Authorize Lovable",
     img: step4,
     imgAlt: "Authorize Lovable",
+    layout: "wide",
     what: "연결할 Organization 선택 후 “Authorize Lovable” 버튼",
     happens:
       "Lovable이 선택한 Supabase 조직의 프로젝트와 백엔드 기능에 접근할 수 있도록 권한을 부여합니다.",
@@ -377,11 +384,13 @@ function SupabaseIntegrationPage() {
                 <span className={`serif text-3xl ${activeStep === s.id ? "text-coral" : "text-ink"}`}>{s.n}</span>
                 <h3 className="serif text-xl leading-tight">{s.title}</h3>
               </div>
-              <div className="grid md:grid-cols-2 gap-6 items-start">
+              <div className={s.layout === "portrait" ? "grid md:grid-cols-[minmax(0,260px)_1fr] gap-6 items-start" : "space-y-5"}>
                 <button
                   type="button"
                   onClick={() => setZoom({ url: s.img.url, alt: s.imgAlt })}
-                  className="block w-full rounded-lg overflow-hidden bg-canvas border border-hairline hover:border-coral cursor-zoom-in"
+                  className={`block rounded-lg overflow-hidden bg-canvas border border-hairline hover:border-coral cursor-zoom-in ${
+                    s.layout === "portrait" ? "w-full max-w-[260px] mx-auto md:mx-0" : "w-full"
+                  }`}
                   aria-label={`${s.imgAlt} 확대`}
                 >
                   <img src={s.img.url} alt={s.imgAlt} className="w-full h-auto" />
