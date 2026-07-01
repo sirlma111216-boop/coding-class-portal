@@ -497,7 +497,7 @@ export default function Mod07() {
       {/* Starter prompt */}
       <Section title="첫 프롬프트 — 형성평가의 전체 흐름 만들기">
         <p className="text-sm text-body mb-3">
-          아래 영문 프롬프트 전체를 복사해 Lovable의 새 프로젝트 입력창에 붙여 넣으세요. 프롬프트는 영어지만 완성되는 앱의 화면과 결과는 모두 한국어입니다.
+          기본은 <span className="font-medium text-ink">한국어 설명</span>으로 보여드립니다. 내용을 이해한 뒤 오른쪽 위 <span className="font-medium text-ink">English</span> 버튼을 눌러 영문 프롬프트로 바꾸고, 그대로 복사해 Lovable의 새 프로젝트 입력창에 붙여 넣으세요. 완성된 앱의 화면과 결과는 모두 한국어로 표시됩니다.
         </p>
         <CopyBlock label="첫 프롬프트" text={STARTER} korean={STARTER_KO} />
       </Section>
