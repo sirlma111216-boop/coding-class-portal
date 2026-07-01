@@ -39,6 +39,7 @@ const categories: { id: "all" | Category; label: string }[] = [
   { id: "ai", label: "AI와 외부 연결" },
   { id: "design", label: "설계와 제작" },
   { id: "code", label: "코드와 버전 관리" },
+  { id: "file", label: "파일과 데이터 형식" },
   { id: "deploy", label: "배포와 운영" },
 ];
 
