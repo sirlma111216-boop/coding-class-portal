@@ -88,6 +88,63 @@ Create a clean, simple, mobile-friendly layout for teachers.
 Use a step-by-step interface: 학습 맥락 → 형성평가 질문 → 학생 답변 → 피드백 결과.
 Keep the visual design calm, clear, and easy to use during class.`;
 
+const STARTER_KO = `교사를 위한 한국어 웹앱 "AI 형성평가 피드백 도우미"를 만들어줘.
+
+중요:
+- 구현 지시문은 영어로 작성해도 되지만, 앱 화면에 보이는 모든 UI(제목, 라벨, 버튼, 안내, 예시, 학생 답변 예시, 오류 메시지, AI 결과)는 반드시 한국어로 표시할 것.
+- 첫 버전부터 Lovable AI를 사용할 것.
+- 이 연수 버전에서는 외부 API 키를 요구하지 않도록 할 것.
+- 학생 이름 등 개인정보를 입력받지 않도록 할 것.
+- AI가 생성한 질문과 피드백은 교사가 반드시 최종 검토하도록 안내할 것.
+
+앱은 다음 교육적 흐름을 따를 것:
+
+1단계. 학습 맥락
+교사가 다음을 입력:
+- 학교급(초/중/고), 교과, 학년, 단원 또는 학습 주제, 학습 목표
+- 필수 항목 표시와 한국어 예시를 함께 제공.
+
+2단계. 형성평가 질문
+학교급, 학년, 교과, 학습 주제, 학습 목표를 바탕으로 짧은 형성평가 질문 3개를 AI가 생성.
+각 질문은:
+- 단순 암기가 아닌 이해도를 확인할 것
+- 1~3문장으로 답할 수 있을 것
+- 선택한 학년 수준의 언어를 사용할 것
+교사는 질문 선택, 선택한 질문 수정, 새 질문 다시 생성이 가능해야 함.
+
+3단계. 학생 답변
+두 가지 옵션을 명확히 구분해 제공:
+1) "예시 학생 답변 생성"
+2) "학생 답변 직접 입력"
+예시 답변 생성 시 교사가 선택:
+- 도달 수준: 도움이 필요함 / 기본 도달 / 충분히 도달
+- 오개념 포함 여부: 포함 / 포함하지 않음
+선택한 질문에 실제로 답하는 사실적인 한국어 학생 답변 1개를 생성.
+직접 입력 시 텍스트 영역과 함께, 학생 이름·민감정보 입력 금지 안내를 명확히 표시.
+
+4단계. 확인
+피드백 생성 전에 다음을 담은 확인 카드 표시:
+- 학습 목표 / 선택한 형성평가 질문 / 학생 답변 / 학생 수준 / 피드백 말투
+
+5단계. AI 피드백
+교사가 말투 선택: 따뜻한 격려 / 구체적 코칭 / 간결한 피드백
+피드백은 정확히 4개 영역으로 생성: 격려 / 잘한 점 / 보완할 점 / 다음 학습 행동
+각 영역은 간결한 한 문장. 학습 목표와 선택한 질문을 참조하고, 학생 답변의 근거를 바탕으로 작성.
+막연한 칭찬이나 다른 학생과의 비교는 피하고, 수업에서 바로 실행 가능한 다음 학습 행동 1가지를 제안.
+교사 최종 검토 안내 문구를 항상 함께 표시.
+
+6단계. 핵심 동작
+질문 생성 / 질문 다시 생성 / 예시 학생 답변 생성 / 피드백 생성 / 결과 복사 / 다시 생성 / 처음부터 다시 하기 버튼 포함.
+
+7단계. 안전 안내
+"학생 실명과 민감한 개인정보를 입력하지 마세요. AI가 생성한 질문과 피드백은 교사가 최종 검토해야 합니다." 문구 표시.
+
+8단계. 첫 버전 범위
+첫 버전은 단순하게 유지. 로그인, 데이터베이스, 학급 관리, 학생 계정, 순위, 결제, 파일 업로드는 넣지 않음.
+
+레이아웃은 교사가 수업 중에도 쓰기 쉬운 깔끔하고 모바일 친화적인 형태로,
+학습 맥락 → 형성평가 질문 → 학생 답변 → 피드백 결과 순의 단계형 인터페이스로 만들어줘.`;
+
 const REV1 = `Keep the current app structure and improve only the formative assessment question generation.
 
 Generate questions that:
@@ -100,6 +157,18 @@ Generate questions that:
 Show a small Korean question-type label for each generated question.
 Keep all visible UI text in Korean.
 Do not change unrelated pages, design, or features.`;
+
+const REV1_KO = `현재 앱 구조는 유지하고, 형성평가 질문 생성 부분만 개선해줘.
+
+생성되는 질문은:
+- 학습 목표와 직접 연결될 것
+- 단순 암기가 아니라 이해도를 확인할 것
+- 1~3문장으로 답할 수 있을 것
+- 선택한 학년 수준의 언어를 사용할 것
+- 설명, 예측, 비교, 근거 제시 등 다양한 유형을 포함할 것
+
+각 질문 옆에 짧은 한국어 질문 유형 라벨을 표시해줘.
+모든 화면 UI는 한국어로 유지하고, 관련 없는 페이지·디자인·기능은 바꾸지 마.`;
 
 const REV2 = `Keep the current app structure and improve only the student response step.
 
@@ -119,6 +188,23 @@ Before generating feedback, show the selected question and student response toge
 Keep all visible UI text in Korean.
 Do not change unrelated features.`;
 
+const REV2_KO = `현재 앱 구조는 유지하고, 학생 답변 단계만 개선해줘.
+
+다음 두 옵션을 명확히 구분해 보여줘:
+1) 예시 학생 답변 생성
+2) 학생 답변 직접 입력
+
+예시 답변 생성 시:
+- 선택된 형성평가 질문을 사용하고
+- 선택된 도달 수준을 반영하며
+- 선택적으로 사실적인 오개념을 하나 포함할 수 있게 하고
+- 간결한 한국어 답변 1개를 생성하며
+- 학생 이름은 절대 포함하지 말 것.
+
+피드백 생성 전에, 선택한 질문과 학생 답변을 함께 보여주는 확인 카드를 표시해줘.
+
+모든 화면 UI는 한국어로 유지하고, 관련 없는 기능은 바꾸지 마.`;
+
 const REV3 = `Keep the current result card structure and improve only the AI feedback quality.
 
 The feedback must be based on:
@@ -135,6 +221,22 @@ Make the next learning action specific and immediately possible in class.
 
 Keep all visible UI and generated feedback in Korean.
 Do not change the design or unrelated features.`;
+
+const REV3_KO = `현재 결과 카드 구조는 유지하고, AI 피드백 품질만 개선해줘.
+
+피드백은 다음을 근거로 작성:
+- 학습 목표
+- 선택한 형성평가 질문
+- 학생 답변
+- 선택한 도달 수준
+
+결과는 정확히 4개 영역으로 구성:
+- 격려 / 잘한 점 / 보완할 점 / 다음 학습 행동
+
+막연한 칭찬, 근거 없는 단정, 판단적인 표현, 다른 학생과의 비교는 피할 것.
+다음 학습 행동은 구체적이고 수업에서 바로 실행 가능한 것으로 만들 것.
+
+모든 화면 UI와 생성 피드백은 한국어로 유지하고, 디자인이나 관련 없는 기능은 바꾸지 마.`;
 
 const REV4 = `Keep the current features and improve only usability and testing.
 
@@ -156,11 +258,30 @@ Fix only the problems found during testing.
 Keep all visible UI text in Korean.
 Do not redesign unrelated sections.`;
 
+const REV4_KO = `현재 기능은 유지하고, 사용성과 테스트만 개선해줘.
+
+추가할 것:
+- 명확한 필수 입력 표시
+- 각 입력 아래의 짧은 한국어 예시
+- 피드백 생성 전 확인 단계
+- AI 생성 중 로딩 상태
+- 전체 피드백 복사 버튼
+- 다시 생성 버튼
+- 초기화 버튼
+- 생성 실패 시 부드러운 한국어 오류 메시지
+
+다음 상황으로 전체 흐름을 테스트해줘:
+- 빈 입력, 매우 짧은 학습 주제, 긴 학생 답변, 모바일 화면
+- 예시 답변 생성, 답변 직접 입력, 복사와 다시 생성 동작
+
+테스트에서 발견된 문제만 수정하고,
+모든 화면 UI는 한국어로 유지하고, 관련 없는 섹션은 재디자인하지 마.`;
+
 const improvements = [
-  ["① 학습 목표에 맞는 질문 만들기", "질문 품질 개선", REV1],
-  ["② 예시 답변 생성과 직접 입력 개선", "학생 답변 흐름 개선", REV2],
-  ["③ 답변의 근거가 드러나는 피드백 만들기", "피드백 품질 개선", REV3],
-  ["④ 결과 활용과 오류 대응 개선", "사용성과 테스트 개선", REV4],
+  ["① 학습 목표에 맞는 질문 만들기", "질문 품질 개선", REV1, REV1_KO],
+  ["② 예시 답변 생성과 직접 입력 개선", "학생 답변 흐름 개선", REV2, REV2_KO],
+  ["③ 답변의 근거가 드러나는 피드백 만들기", "피드백 품질 개선", REV3, REV3_KO],
+  ["④ 결과 활용과 오류 대응 개선", "사용성과 테스트 개선", REV4, REV4_KO],
 ];
 
 const checks = [
@@ -217,6 +338,40 @@ Explain the cause briefly.
 Fix only that problem and test the full flow again.
 Do not redesign the app.
 Keep all visible UI text in Korean.`;
+
+const ERR_FEATURE_KO = `[기능 이름]이 작동하지 않아.
+
+현재 상태:
+[지금 어떻게 되는지 설명]
+
+원래 원하는 결과:
+[어떻게 되어야 하는지 설명]
+
+가장 작은 원인을 찾아 이 문제만 수정해줘.
+디자인이나 관련 없는 기능은 바꾸지 말고, 모든 화면 UI는 한국어로 유지해줘.`;
+
+const ERR_RESULT_KO = `현재 결과가 잘못되었거나 이해하기 어려워.
+
+문제:
+[잘못된 결과 설명]
+
+원래 원하는 결과:
+[올바른 결과 설명]
+
+이 부분만 수정하고 다시 테스트해줘.
+새 기능은 추가하지 말고, 모든 화면 UI는 한국어로 유지해줘.`;
+
+const ERR_FLOW_KO = `현재 핵심 흐름을 단계별로 순서대로 테스트해줘:
+학습 맥락 입력
+→ 형성평가 질문 생성
+→ 질문 선택 또는 수정
+→ 예시 학생 답변 생성 또는 직접 입력
+→ AI 피드백 생성
+→ 결과 복사
+
+가장 먼저 실패하는 단계를 찾아 원인을 짧게 설명하고,
+그 문제만 수정한 뒤 전체 흐름을 다시 테스트해줘.
+앱을 재디자인하지 말고, 모든 화면 UI는 한국어로 유지해줘.`;
 
 const CHATBOT_TEMPLATE = `현재 만들고 있는 앱:
 [앱의 이름과 목적]
@@ -342,9 +497,9 @@ export default function Mod07() {
       {/* Starter prompt */}
       <Section title="첫 프롬프트 — 형성평가의 전체 흐름 만들기">
         <p className="text-sm text-body mb-3">
-          아래 영문 프롬프트 전체를 복사해 Lovable의 새 프로젝트 입력창에 붙여 넣으세요. 프롬프트는 영어지만 완성되는 앱의 화면과 결과는 모두 한국어입니다.
+          기본은 <span className="font-medium text-ink">한국어 설명</span>으로 보여드립니다. 내용을 이해한 뒤 오른쪽 위 <span className="font-medium text-ink">English</span> 버튼을 눌러 영문 프롬프트로 바꾸고, 그대로 복사해 Lovable의 새 프로젝트 입력창에 붙여 넣으세요. 완성된 앱의 화면과 결과는 모두 한국어로 표시됩니다.
         </p>
-        <CopyBlock label="첫 프롬프트 (영문)" text={STARTER} />
+        <CopyBlock label="첫 프롬프트" text={STARTER} korean={STARTER_KO} />
       </Section>
 
       {/* Why this order */}
@@ -386,11 +541,11 @@ export default function Mod07() {
 
       {/* Incremental prompts */}
       <Section title="단계적 개선 프롬프트">
-        {improvements.map(([title, sub, prompt]) => (
+        {improvements.map(([title, sub, prompt, promptKo]) => (
           <div key={title} className="mb-6">
             <h3 className="serif text-xl mb-1">{title}</h3>
             <p className="text-xs text-muted-text mb-2">{sub}</p>
-            <CopyBlock label={title} text={prompt} />
+            <CopyBlock label={title} text={prompt} korean={promptKo} />
           </div>
         ))}
       </Section>
@@ -554,13 +709,13 @@ export default function Mod07() {
       {/* Simple error prompts (3) */}
       <Section title="간단 오류 해결 프롬프트 3종">
         {[
-          ["① 버튼이나 기능이 작동하지 않아요", ERR_FEATURE, "예시 학생 답변 생성 버튼을 눌러도 아무 반응이 없습니다. 원래는 선택된 질문에 대한 학생 답변 예시가 표시되어야 합니다. 다른 화면과 디자인은 변경하지 말고 이 기능만 수정해줘."],
-          ["② 화면이나 AI 결과가 이상해요", ERR_RESULT, "학생 답변과 관계없는 피드백이 생성됩니다. 선택한 질문과 학생 답변에 실제로 나타난 내용을 근거로 피드백을 작성하도록 수정해줘. 새 기능은 추가하지 마."],
-          ["③ 전체 흐름을 순서대로 점검해줘", ERR_FLOW, "어디에서 문제가 생기는지 모르겠습니다. 학습 맥락 입력부터 결과 복사까지 순서대로 테스트하고, 처음 실패하는 단계만 찾아 수정해줘."],
-        ].map(([title, prompt, ex]) => (
+          ["① 버튼이나 기능이 작동하지 않아요", ERR_FEATURE, ERR_FEATURE_KO, "예시 학생 답변 생성 버튼을 눌러도 아무 반응이 없습니다. 원래는 선택된 질문에 대한 학생 답변 예시가 표시되어야 합니다. 다른 화면과 디자인은 변경하지 말고 이 기능만 수정해줘."],
+          ["② 화면이나 AI 결과가 이상해요", ERR_RESULT, ERR_RESULT_KO, "학생 답변과 관계없는 피드백이 생성됩니다. 선택한 질문과 학생 답변에 실제로 나타난 내용을 근거로 피드백을 작성하도록 수정해줘. 새 기능은 추가하지 마."],
+          ["③ 전체 흐름을 순서대로 점검해줘", ERR_FLOW, ERR_FLOW_KO, "어디에서 문제가 생기는지 모르겠습니다. 학습 맥락 입력부터 결과 복사까지 순서대로 테스트하고, 처음 실패하는 단계만 찾아 수정해줘."],
+        ].map(([title, prompt, promptKo, ex]) => (
           <div key={title} className="mb-5">
             <h3 className="serif text-xl mb-2">{title}</h3>
-            <CopyBlock label={title} text={prompt} />
+            <CopyBlock label={title} text={prompt} korean={promptKo} />
             <p className="text-xs text-muted-text mt-2">
               <span className="font-medium text-ink">한국어 예시:</span> {ex}
             </p>

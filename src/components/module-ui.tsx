@@ -106,37 +106,73 @@ export function CopyBlock({
   label,
   text,
   language,
+  korean,
 }: {
   label?: string;
   text: string;
   language?: string;
+  korean?: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const [lang, setLang] = useState<"ko" | "en">(korean ? "ko" : "en");
+  const shown = lang === "ko" && korean ? korean : text;
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(shown);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {}
   };
   return (
     <div className="bg-surface-dark text-on-dark rounded-lg overflow-hidden my-4">
-      <div className="flex items-center justify-between px-5 py-3 border-b border-white/10">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-white/10">
         <span className="text-xs uppercase tracking-widest text-on-dark-soft font-medium">
           {label || (language ?? "prompt")}
+          {korean && (
+            <span className="ml-2 normal-case tracking-normal text-on-dark-soft/80">
+              · {lang === "ko" ? "한국어 설명" : "English (Lovable 입력용)"}
+            </span>
+          )}
         </span>
-        <button
-          onClick={copy}
-          className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md bg-surface-dark-elevated hover:bg-white/10 transition-colors"
-          aria-label="복사하기"
-        >
-          {copied ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-          {copied ? "복사됨" : "복사"}
-        </button>
+        <div className="flex items-center gap-2">
+          {korean && (
+            <div className="inline-flex rounded-md bg-surface-dark-elevated p-0.5 text-xs">
+              <button
+                type="button"
+                onClick={() => setLang("ko")}
+                className={`px-2 py-1 rounded ${lang === "ko" ? "bg-coral text-white" : "text-on-dark-soft hover:text-on-dark"}`}
+                aria-pressed={lang === "ko"}
+              >
+                한국어
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang("en")}
+                className={`px-2 py-1 rounded ${lang === "en" ? "bg-coral text-white" : "text-on-dark-soft hover:text-on-dark"}`}
+                aria-pressed={lang === "en"}
+              >
+                English
+              </button>
+            </div>
+          )}
+          <button
+            onClick={copy}
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md bg-surface-dark-elevated hover:bg-white/10 transition-colors"
+            aria-label="복사하기"
+          >
+            {copied ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? "복사됨" : "복사"}
+          </button>
+        </div>
       </div>
       <pre className="px-5 py-4 overflow-x-auto text-sm leading-relaxed whitespace-pre-wrap font-mono">
-        {text}
+        {shown}
       </pre>
+      {korean && lang === "ko" && (
+        <p className="px-5 pb-3 text-xs text-on-dark-soft">
+          이 화면은 이해를 돕는 한국어 설명입니다. Lovable에 붙여 넣을 때는 English 탭의 영문 프롬프트를 사용하세요.
+        </p>
+      )}
     </div>
   );
 }
