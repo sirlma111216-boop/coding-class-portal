@@ -438,13 +438,6 @@ function ToolBadge({ text, status }: { text: string; status: Status }) {
   );
 }
 
-function StatusChip({ status }: { status: Status }) {
-  return status === "ready" ? (
-    <span className="text-[11px] px-2 py-0.5 rounded-pill bg-green-100 text-green-800">학습 가능</span>
-  ) : (
-    <span className="text-[11px] px-2 py-0.5 rounded-pill bg-amber-100 text-amber-800">과정 준비 중</span>
-  );
-}
 
 // ============================================================
 // 3. Tool Card
@@ -456,9 +449,6 @@ function ToolCard({ tool, onOpen }: { tool: Tool; onOpen: (t: Tool) => void }) {
       <div className="flex items-center justify-between mb-2 gap-2">
         <h3 className="serif text-xl">{tool.name}</h3>
         <ToolBadge text={tool.badge} status={tool.status} />
-      </div>
-      <div className="mb-3">
-        <StatusChip status={tool.status} />
       </div>
       <p className="text-sm text-body mb-4 leading-relaxed">{tool.oneLine}</p>
       <dl className="text-xs space-y-1.5 text-body mb-4">
@@ -514,7 +504,6 @@ function ToolDetailModal({ tool, onClose }: { tool: Tool | null; onClose: () => 
           <div>
             <div className="flex items-center gap-2 mb-2">
               <ToolBadge text={tool.badge} status={tool.status} />
-              <StatusChip status={tool.status} />
               <span className="text-xs text-muted-text">{PATH_LABEL[tool.learningPath]}</span>
             </div>
             <h3 className="serif text-2xl">{tool.name}</h3>
@@ -943,7 +932,6 @@ function RecommendationWizard() {
             <span className="text-[10px] uppercase tracking-widest font-medium px-2 py-0.5 rounded-pill bg-coral text-white">
               가장 추천
             </span>
-            <StatusChip status={top.tool.status} />
             <span className="ml-auto text-sm font-medium text-coral">일치도 {top.score}%</span>
           </div>
           <h4 className="serif text-2xl mb-2">{top.tool.name}</h4>
@@ -985,7 +973,6 @@ function RecommendationWizard() {
                 <span className="ml-auto text-xs text-muted-text">일치도 {r.score}%</span>
               </div>
               <h4 className="serif text-xl mb-1">{r.tool.name}</h4>
-              <StatusChip status={r.tool.status} />
               <ul className="text-xs text-body mt-3 space-y-1 list-disc pl-5">
                 {r.reasons.map((rr, i) => (
                   <li key={i}>{rr}</li>
