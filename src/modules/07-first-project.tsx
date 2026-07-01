@@ -709,13 +709,13 @@ export default function Mod07() {
       {/* Simple error prompts (3) */}
       <Section title="간단 오류 해결 프롬프트 3종">
         {[
-          ["① 버튼이나 기능이 작동하지 않아요", ERR_FEATURE, "예시 학생 답변 생성 버튼을 눌러도 아무 반응이 없습니다. 원래는 선택된 질문에 대한 학생 답변 예시가 표시되어야 합니다. 다른 화면과 디자인은 변경하지 말고 이 기능만 수정해줘."],
-          ["② 화면이나 AI 결과가 이상해요", ERR_RESULT, "학생 답변과 관계없는 피드백이 생성됩니다. 선택한 질문과 학생 답변에 실제로 나타난 내용을 근거로 피드백을 작성하도록 수정해줘. 새 기능은 추가하지 마."],
-          ["③ 전체 흐름을 순서대로 점검해줘", ERR_FLOW, "어디에서 문제가 생기는지 모르겠습니다. 학습 맥락 입력부터 결과 복사까지 순서대로 테스트하고, 처음 실패하는 단계만 찾아 수정해줘."],
-        ].map(([title, prompt, ex]) => (
+          ["① 버튼이나 기능이 작동하지 않아요", ERR_FEATURE, ERR_FEATURE_KO, "예시 학생 답변 생성 버튼을 눌러도 아무 반응이 없습니다. 원래는 선택된 질문에 대한 학생 답변 예시가 표시되어야 합니다. 다른 화면과 디자인은 변경하지 말고 이 기능만 수정해줘."],
+          ["② 화면이나 AI 결과가 이상해요", ERR_RESULT, ERR_RESULT_KO, "학생 답변과 관계없는 피드백이 생성됩니다. 선택한 질문과 학생 답변에 실제로 나타난 내용을 근거로 피드백을 작성하도록 수정해줘. 새 기능은 추가하지 마."],
+          ["③ 전체 흐름을 순서대로 점검해줘", ERR_FLOW, ERR_FLOW_KO, "어디에서 문제가 생기는지 모르겠습니다. 학습 맥락 입력부터 결과 복사까지 순서대로 테스트하고, 처음 실패하는 단계만 찾아 수정해줘."],
+        ].map(([title, prompt, promptKo, ex]) => (
           <div key={title} className="mb-5">
             <h3 className="serif text-xl mb-2">{title}</h3>
-            <CopyBlock label={title} text={prompt} />
+            <CopyBlock label={title} text={prompt} korean={promptKo} />
             <p className="text-xs text-muted-text mt-2">
               <span className="font-medium text-ink">한국어 예시:</span> {ex}
             </p>
