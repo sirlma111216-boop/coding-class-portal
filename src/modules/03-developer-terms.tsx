@@ -100,7 +100,7 @@ const terms: Term[] = [
   { id: "vectordb", term: "Vector Database", koreanName: "벡터 데이터베이스", shortDescription: "의미가 비슷한 문서나 자료를 빠르게 찾기 위해 임베딩 값을 저장하는 데이터베이스.", relatedTerms: ["Embedding", "RAG"], category: "ai", level: "심화" },
   { id: "webhook", term: "Webhook", koreanName: "웹훅", shortDescription: "특정 사건이 발생했을 때 다른 서비스로 자동 알림이나 데이터를 보내는 방식.", easyAnalogy: "택배 도착 알림톡.", useCase: "결제 완료 시 이메일 전송 등 자동 연동.", relatedTerms: ["API"], category: "ai", level: "심화" },
   { id: "sdk", term: "SDK", fullForm: "Software Development Kit", shortDescription: "특정 서비스나 기능을 앱에 쉽게 연결하도록 제공하는 개발 도구 모음.", easyAnalogy: "완성된 조립 키트.", useCase: "복잡한 API를 간단히 사용하도록 도와줄 때.", relatedTerms: ["API", "Library"], category: "ai", level: "알아두면 좋음" },
-  { id: "json", term: "JSON", fullForm: "JavaScript Object Notation", shortDescription: "프로그램 사이에서 데이터를 주고받을 때 많이 사용하는 텍스트 형식.", easyAnalogy: "정해진 양식의 서식.", useCase: "API 응답, 설정 파일 등에 사용.", relatedTerms: ["API"], category: "ai", level: "알아두면 좋음" },
+  
   { id: "http", term: "HTTP", fullForm: "HyperText Transfer Protocol", shortDescription: "웹에서 브라우저와 서버가 정보를 주고받을 때 쓰는 통신 규칙.", relatedTerms: ["HTTPS", "API"], category: "ai", level: "알아두면 좋음" },
   { id: "prompt", term: "Prompt", koreanName: "프롬프트", shortDescription: "AI에게 원하는 결과와 조건을 전달하는 제작 지시.", easyAnalogy: "요리사에게 주는 자세한 주문서.", useCase: "AI로 코드·글·이미지를 만들 때.", relatedTerms: ["LLM", "PRD"], category: "ai", level: "기초" },
 
