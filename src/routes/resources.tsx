@@ -336,6 +336,7 @@ function ResourcesPage() {
   };
 
   const feedbackBundle = resources.filter((r) => r.bundle === "feedback");
+  const simpleBundle = resources.filter((r) => r.bundle === "simple");
 
   const bundleMarkdown = useMemo(() => {
     return `# AI 형성평가 피드백 도우미 — 실습 자료
@@ -348,7 +349,17 @@ ${feedbackBundle
 `;
   }, [feedbackBundle]);
 
+  const simpleMarkdown = useMemo(() => {
+    return `# 첫 번째 완성 경험 — 초간단 실습 자료
+
+${simpleBundle
+  .map((r) => `\n## ${r.title}\n\n_언제 쓰나요:_ ${r.when}\n\n\`\`\`\n${r.body}\n\`\`\`\n`)
+  .join("\n")}
+`;
+  }, [simpleBundle]);
+
   const copyAllBundle = () => copy("bundle-all", bundleMarkdown);
+  const copySimpleBundle = () => copy("simple-all", simpleMarkdown);
 
   const downloadBundle = () => {
     const blob = new Blob([bundleMarkdown], { type: "text/markdown;charset=utf-8" });
@@ -359,6 +370,17 @@ ${feedbackBundle
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  const downloadSimpleBundle = () => {
+    const blob = new Blob([simpleMarkdown], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "첫번째_완성경험_초간단_실습자료.md";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
 
   return (
     <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10 sm:py-16">
