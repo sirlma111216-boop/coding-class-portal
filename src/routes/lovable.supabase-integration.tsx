@@ -29,6 +29,7 @@ type Step = {
   title: string;
   img: { url: string };
   imgAlt: string;
+  layout: "portrait" | "wide";
   what?: string;
   happens?: string;
   tip?: string;
