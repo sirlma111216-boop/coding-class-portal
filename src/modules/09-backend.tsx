@@ -111,9 +111,21 @@ export default function Mod09() {
           <ConceptCard title="Lovable Cloud">
             대화로 데이터베이스·인증·secret을 한 번에 연결합니다. 별도 계정 없이 시작합니다.
           </ConceptCard>
-          <ConceptCard title="Supabase integration" tone="dark">
-            기존 Supabase 프로젝트가 있거나, 직접 관리하고 싶을 때 연결합니다.
-          </ConceptCard>
+          <Link
+            to="/lovable/supabase-integration"
+            className="block group rounded-lg bg-ink text-white p-5 hover:bg-ink/90 transition-colors cursor-pointer"
+          >
+            <p className="serif text-xl mb-2 text-white">Supabase integration</p>
+            <p className="text-sm text-white/85 leading-relaxed mb-3">
+              기존 Supabase 프로젝트가 있거나, 직접 관리하고 싶을 때 연결합니다.
+            </p>
+            <p className="text-xs text-white/70 mb-3">
+              기존 Supabase 계정을 Lovable에 연결하는 6단계 안내
+            </p>
+            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-coral text-white px-3 py-1.5 rounded-md group-hover:bg-coral-active">
+              연결 방법 보기 →
+            </span>
+          </Link>
         </div>
       </Section>
 
