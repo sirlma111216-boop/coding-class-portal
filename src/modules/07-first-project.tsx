@@ -541,11 +541,11 @@ export default function Mod07() {
 
       {/* Incremental prompts */}
       <Section title="단계적 개선 프롬프트">
-        {improvements.map(([title, sub, prompt]) => (
+        {improvements.map(([title, sub, prompt, promptKo]) => (
           <div key={title} className="mb-6">
             <h3 className="serif text-xl mb-1">{title}</h3>
             <p className="text-xs text-muted-text mb-2">{sub}</p>
-            <CopyBlock label={title} text={prompt} />
+            <CopyBlock label={title} text={prompt} korean={promptKo} />
           </div>
         ))}
       </Section>
