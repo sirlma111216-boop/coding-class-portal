@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ModulesSlugRouteImport } from './routes/modules.$slug'
+import { Route as LovableSupabaseIntegrationRouteImport } from './routes/lovable.supabase-integration'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -34,17 +35,25 @@ const ModulesSlugRoute = ModulesSlugRouteImport.update({
   path: '/modules/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableSupabaseIntegrationRoute =
+  LovableSupabaseIntegrationRouteImport.update({
+    id: '/lovable/supabase-integration',
+    path: '/lovable/supabase-integration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/lovable/supabase-integration': typeof LovableSupabaseIntegrationRoute
   '/modules/$slug': typeof ModulesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/lovable/supabase-integration': typeof LovableSupabaseIntegrationRoute
   '/modules/$slug': typeof ModulesSlugRoute
 }
 export interface FileRoutesById {
@@ -52,20 +61,38 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/lovable/supabase-integration': typeof LovableSupabaseIntegrationRoute
   '/modules/$slug': typeof ModulesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/resources' | '/sitemap.xml' | '/modules/$slug'
+  fullPaths:
+    | '/'
+    | '/resources'
+    | '/sitemap.xml'
+    | '/lovable/supabase-integration'
+    | '/modules/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/resources' | '/sitemap.xml' | '/modules/$slug'
-  id: '__root__' | '/' | '/resources' | '/sitemap.xml' | '/modules/$slug'
+  to:
+    | '/'
+    | '/resources'
+    | '/sitemap.xml'
+    | '/lovable/supabase-integration'
+    | '/modules/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/resources'
+    | '/sitemap.xml'
+    | '/lovable/supabase-integration'
+    | '/modules/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LovableSupabaseIntegrationRoute: typeof LovableSupabaseIntegrationRoute
   ModulesSlugRoute: typeof ModulesSlugRoute
 }
 
@@ -99,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModulesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/supabase-integration': {
+      id: '/lovable/supabase-integration'
+      path: '/lovable/supabase-integration'
+      fullPath: '/lovable/supabase-integration'
+      preLoaderRoute: typeof LovableSupabaseIntegrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -106,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LovableSupabaseIntegrationRoute: LovableSupabaseIntegrationRoute,
   ModulesSlugRoute: ModulesSlugRoute,
 }
 export const routeTree = rootRouteImport
