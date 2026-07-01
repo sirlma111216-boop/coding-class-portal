@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Search, ChevronDown } from "lucide-react";
+import { Search, ChevronDown, Copy, Check } from "lucide-react";
 import { moduleByNumber } from "@/data/course";
 import {
   ModuleHeader,
@@ -11,7 +11,7 @@ import {
 
 const m = moduleByNumber(3)!;
 
-type Category = "ui" | "data" | "ai" | "design" | "code" | "deploy";
+type Category = "ui" | "data" | "ai" | "design" | "code" | "file" | "deploy";
 type Level = "기초" | "알아두면 좋음" | "심화";
 
 type Term = {
@@ -19,9 +19,13 @@ type Term = {
   term: string;
   fullForm?: string;
   koreanName?: string;
+  extension?: string;
   shortDescription: string;
   easyAnalogy?: string;
   useCase?: string;
+  example?: string;
+  exampleLang?: "json" | "yaml" | "markdown" | "xml" | "csv" | "text";
+  caution?: string;
   relatedTerms?: string[];
   category: Category;
   level: Level;
@@ -35,6 +39,7 @@ const categories: { id: "all" | Category; label: string }[] = [
   { id: "ai", label: "AI와 외부 연결" },
   { id: "design", label: "설계와 제작" },
   { id: "code", label: "코드와 버전 관리" },
+  { id: "file", label: "파일과 데이터 형식" },
   { id: "deploy", label: "배포와 운영" },
 ];
 
@@ -95,7 +100,7 @@ const terms: Term[] = [
   { id: "vectordb", term: "Vector Database", koreanName: "벡터 데이터베이스", shortDescription: "의미가 비슷한 문서나 자료를 빠르게 찾기 위해 임베딩 값을 저장하는 데이터베이스.", relatedTerms: ["Embedding", "RAG"], category: "ai", level: "심화" },
   { id: "webhook", term: "Webhook", koreanName: "웹훅", shortDescription: "특정 사건이 발생했을 때 다른 서비스로 자동 알림이나 데이터를 보내는 방식.", easyAnalogy: "택배 도착 알림톡.", useCase: "결제 완료 시 이메일 전송 등 자동 연동.", relatedTerms: ["API"], category: "ai", level: "심화" },
   { id: "sdk", term: "SDK", fullForm: "Software Development Kit", shortDescription: "특정 서비스나 기능을 앱에 쉽게 연결하도록 제공하는 개발 도구 모음.", easyAnalogy: "완성된 조립 키트.", useCase: "복잡한 API를 간단히 사용하도록 도와줄 때.", relatedTerms: ["API", "Library"], category: "ai", level: "알아두면 좋음" },
-  { id: "json", term: "JSON", fullForm: "JavaScript Object Notation", shortDescription: "프로그램 사이에서 데이터를 주고받을 때 많이 사용하는 텍스트 형식.", easyAnalogy: "정해진 양식의 서식.", useCase: "API 응답, 설정 파일 등에 사용.", relatedTerms: ["API"], category: "ai", level: "알아두면 좋음" },
+  
   { id: "http", term: "HTTP", fullForm: "HyperText Transfer Protocol", shortDescription: "웹에서 브라우저와 서버가 정보를 주고받을 때 쓰는 통신 규칙.", relatedTerms: ["HTTPS", "API"], category: "ai", level: "알아두면 좋음" },
   { id: "prompt", term: "Prompt", koreanName: "프롬프트", shortDescription: "AI에게 원하는 결과와 조건을 전달하는 제작 지시.", easyAnalogy: "요리사에게 주는 자세한 주문서.", useCase: "AI로 코드·글·이미지를 만들 때.", relatedTerms: ["LLM", "PRD"], category: "ai", level: "기초" },
 
@@ -132,6 +137,27 @@ const terms: Term[] = [
   { id: "pr", term: "Pull Request / PR", koreanName: "풀 리퀘스트", shortDescription: "내가 수정한 내용을 원래 프로젝트에 합쳐달라고 요청하는 기능.", relatedTerms: ["Merge", "GitHub"], category: "code", level: "심화" },
   { id: "oss", term: "Open Source", koreanName: "오픈 소스", shortDescription: "소스 코드를 공개해 다른 사람이 확인, 수정, 활용할 수 있도록 한 방식.", relatedTerms: ["License", "GitHub"], category: "code", level: "알아두면 좋음" },
   { id: "license", term: "License", koreanName: "라이선스", shortDescription: "코드나 자료를 어떤 조건으로 사용하고 수정할 수 있는지 정한 규칙.", relatedTerms: ["Open Source"], category: "code", level: "알아두면 좋음" },
+
+  // 파일과 데이터 형식
+  { id: "json", term: "JSON", fullForm: "JavaScript Object Notation", extension: ".json", shortDescription: "프로그램 사이에서 구조화된 데이터를 주고받을 때 많이 사용하는 텍스트 형식.", easyAnalogy: "이름표가 붙은 서랍에 값을 정리해 둔 데이터 상자와 비슷합니다.", useCase: "API 응답, 앱 설정값, 사용자 데이터, 데이터베이스 처리 결과를 표현할 때 자주 사용합니다.", example: `{\n  "name": "김교사",\n  "subject": "과학",\n  "grade": 2\n}`, exampleLang: "json", caution: "쉼표, 따옴표, 중괄호 위치가 틀리면 오류가 발생할 수 있습니다.", relatedTerms: ["API", "Object", "Array", "Key", "Value"], category: "file", level: "기초", keywords: [".json", "json"] },
+  { id: "markdown", term: "Markdown", fullForm: "Markdown Document", extension: ".md", shortDescription: "간단한 기호를 사용해 제목, 목록, 강조, 링크 등을 표현하는 문서 작성 형식.", easyAnalogy: "복잡한 워드 편집 없이 기호만으로 문서 구조를 표시하는 메모 방식입니다.", useCase: "README, 프로젝트 설명서, PRD, 수업 자료, AI 프롬프트 문서를 작성할 때 사용합니다.", example: `# 제목\n## 소제목\n- 목록\n**굵게**\n[링크 이름](주소)`, exampleLang: "markdown", caution: ".md는 Markdown 문서의 대표적인 파일 확장자입니다.", relatedTerms: ["README", "Documentation", "PRD"], category: "file", level: "기초", keywords: [".md", "md", "markdown"] },
+  { id: "readme", term: "README", shortDescription: "프로젝트의 목적, 실행 방법, 기능, 주의사항을 안내하는 대표 설명 문서.", easyAnalogy: "새 프로젝트를 처음 연 사람에게 보여주는 사용 설명서입니다.", useCase: "GitHub 저장소의 첫 화면에서 프로젝트를 설명할 때 주로 사용합니다.", caution: "보통 README.md라는 이름으로 작성합니다.", relatedTerms: ["Markdown", "Repository", "GitHub", "Documentation"], category: "file", level: "기초", keywords: ["readme", "readme.md"] },
+  { id: "yaml", term: "YAML", fullForm: "YAML Ain't Markup Language", extension: ".yaml / .yml", shortDescription: "들여쓰기와 간단한 문법으로 설정값과 구조를 표현하는 텍스트 형식.", easyAnalogy: "설정 내용을 사람이 읽기 쉽게 줄과 들여쓰기로 정리한 파일입니다.", useCase: "GitHub Actions, 배포 설정, Docker, CI/CD 설정 파일에서 자주 사용합니다.", example: `name: Deploy\non:\n  push:\n    branches:\n      - main`, exampleLang: "yaml", caution: "YAML은 들여쓰기가 매우 중요하며 탭과 공백을 혼용하면 오류가 생길 수 있습니다.", relatedTerms: ["CI/CD", "GitHub Actions", "Configuration"], category: "file", level: "알아두면 좋음", keywords: [".yaml", ".yml", "yml"] },
+  { id: "csv", term: "CSV", fullForm: "Comma-Separated Values", extension: ".csv", shortDescription: "표 형태의 데이터를 쉼표로 구분해 저장하는 텍스트 파일 형식.", easyAnalogy: "엑셀 표를 글자와 쉼표만으로 저장한 형태입니다.", useCase: "학생 명렬, 점수표, 설문 결과, 데이터베이스 자료를 가져오거나 내보낼 때 사용합니다.", example: `name,class,score\n김학생,1,85\n이학생,1,92`, exampleLang: "csv", caution: "데이터 안에 쉼표가 들어갈 경우 따옴표 처리가 필요할 수 있습니다.", relatedTerms: ["Spreadsheet", "Database", "Import", "Export"], category: "file", level: "기초", keywords: [".csv", "csv"] },
+  { id: "xml", term: "XML", fullForm: "eXtensible Markup Language", extension: ".xml", shortDescription: "태그를 사용해 데이터의 구조와 의미를 표현하는 텍스트 형식.", easyAnalogy: "HTML처럼 여는 태그와 닫는 태그 사이에 데이터를 넣어 정리하는 방식입니다.", useCase: "일부 오래된 API, 문서 형식, 설정 파일, 데이터 교환에 사용됩니다.", example: `<student>\n  <name>김학생</name>\n  <score>85</score>\n</student>`, exampleLang: "xml", relatedTerms: ["HTML", "API", "JSON"], category: "file", level: "알아두면 좋음", keywords: [".xml", "xml"] },
+  { id: "txt", term: "TXT", fullForm: "Plain Text File", extension: ".txt", shortDescription: "서식 없이 글자만 저장하는 가장 기본적인 텍스트 파일 형식.", easyAnalogy: "글자만 적을 수 있는 가장 단순한 메모장 파일입니다.", useCase: "간단한 메모, 로그, 프롬프트, 데이터 임시 저장에 사용합니다.", relatedTerms: ["Log", "Markdown", "Plain Text"], category: "file", level: "기초", keywords: [".txt", "txt"] },
+  { id: "htmlfile", term: "HTML 파일", extension: ".html", shortDescription: "웹페이지의 구조와 내용을 담고 있는 파일.", easyAnalogy: "웹페이지의 뼈대가 들어 있는 문서입니다.", useCase: "제목, 문단, 버튼, 이미지, 링크 등 웹페이지 요소를 정의합니다.", relatedTerms: ["HTML", "CSS", "JavaScript"], category: "file", level: "기초", keywords: [".html", "html"] },
+  { id: "cssfile", term: "CSS 파일", extension: ".css", shortDescription: "웹페이지의 색상, 크기, 글꼴, 간격, 배치 스타일을 담는 파일.", easyAnalogy: "웹페이지의 옷과 꾸밈을 정하는 문서입니다.", useCase: "HTML 요소의 모양과 반응형 레이아웃을 설정할 때 사용합니다.", relatedTerms: ["HTML", "Responsive", "UI"], category: "file", level: "기초", keywords: [".css", "css"] },
+  { id: "jsfile", term: "JavaScript 파일", extension: ".js", shortDescription: "웹페이지의 동작과 상호작용을 구현하는 코드 파일.", easyAnalogy: "버튼을 눌렀을 때 움직이거나 계산하고 화면을 바꾸게 하는 동작 설명서입니다.", useCase: "클릭 이벤트, 데이터 처리, API 호출, 화면 변경을 구현할 때 사용합니다.", relatedTerms: ["Frontend", "API", "Function"], category: "file", level: "기초", keywords: [".js", "js", "javascript"] },
+  { id: "tsfile", term: "TypeScript 파일", extension: ".ts / .tsx", shortDescription: "JavaScript에 데이터 형식 검사를 추가해 오류를 줄이도록 만든 언어와 파일 형식.", easyAnalogy: "JavaScript에 값의 종류를 미리 확인하는 안전장치를 더한 방식입니다.", useCase: "React, Lovable, 현대적인 웹앱 프로젝트에서 자주 사용합니다.", caution: ".tsx는 JSX 문법이 포함된 TypeScript 화면 컴포넌트 파일에 자주 사용됩니다.", relatedTerms: ["JavaScript", "React", "Component", "Type"], category: "file", level: "알아두면 좋음", keywords: [".ts", ".tsx", "typescript", "ts", "tsx"] },
+  { id: "jsxtsx", term: "JSX / TSX", extension: ".jsx / .tsx", shortDescription: "JavaScript 또는 TypeScript 안에서 HTML과 비슷한 화면 구조를 작성하는 문법과 파일 형식.", easyAnalogy: "화면 구조와 동작 코드를 한곳에서 함께 작성하는 방식입니다.", useCase: "React 컴포넌트의 버튼, 카드, 화면 구조를 만들 때 사용합니다.", relatedTerms: ["React", "Component", "JavaScript", "TypeScript"], category: "file", level: "알아두면 좋음", keywords: [".jsx", ".tsx", "jsx", "tsx"] },
+  { id: "envfile", term: "환경 변수 파일", extension: ".env", shortDescription: "API 키, 서버 주소, 환경별 설정값을 코드와 분리해 저장하는 파일.", easyAnalogy: "앱의 비밀번호와 설정값을 따로 보관하는 비밀 설정 메모입니다.", useCase: "API 키, 데이터베이스 주소, 서비스 설정값을 관리할 때 사용합니다.", caution: ".env 파일과 실제 API 키를 GitHub 공개 저장소에 올리면 안 됩니다.", relatedTerms: ["Environment Variable", "Secret / API Key", "GitHub"], category: "file", level: "알아두면 좋음", keywords: [".env", "env", "dotenv"] },
+  { id: "packagejson", term: "package.json", extension: "package.json", shortDescription: "JavaScript 프로젝트의 이름, 실행 명령어, 설치된 라이브러리 정보를 기록하는 설정 파일.", easyAnalogy: "이 프로젝트에 어떤 재료와 실행 방법이 필요한지 적힌 목록표입니다.", useCase: "React, Vite, Node.js 프로젝트에서 라이브러리 설치와 실행 명령을 관리합니다.", relatedTerms: ["npm", "Dependency", "Script", "Library"], category: "file", level: "알아두면 좋음", keywords: ["package.json", "npm"] },
+  { id: "lockfile", term: "Lock 파일", extension: "package-lock.json / pnpm-lock.yaml / yarn.lock", shortDescription: "프로젝트가 사용하는 라이브러리의 정확한 버전을 고정해 기록하는 파일.", easyAnalogy: "누가 실행해도 같은 재료 버전을 사용하도록 정해 둔 목록입니다.", useCase: "컴퓨터나 배포 환경이 달라도 동일한 라이브러리 구성을 재현할 때 사용합니다.", caution: "일반적으로 직접 수정하지 않고 패키지 관리 도구가 자동으로 관리합니다.", relatedTerms: ["Dependency", "package.json", "npm"], category: "file", level: "심화", keywords: ["package-lock", "yarn.lock", "pnpm-lock", "lock"] },
+  { id: "configfile", term: "Config 파일", fullForm: "Configuration File", shortDescription: "앱이나 개발 도구가 어떻게 동작할지 설정하는 파일.", easyAnalogy: "프로그램의 세부 규칙을 정해 두는 설정표입니다.", useCase: "빌드, 배포, 코드 검사, 데이터베이스, 프레임워크 설정에 사용합니다.", example: `vite.config.ts\ntsconfig.json\nvercel.json`, exampleLang: "text", relatedTerms: ["Build", "Deploy / Publish", "Environment Variable"], category: "file", level: "알아두면 좋음", keywords: ["config", "설정"] },
+  { id: "binary", term: "Binary File", koreanName: "바이너리 파일", shortDescription: "사람이 글자로 바로 읽기 어려운 컴퓨터용 데이터 형식의 파일.", easyAnalogy: "이미지, 영상, 실행 파일처럼 메모장으로 내용을 확인하기 어려운 파일입니다.", example: `.png  .jpg  .pdf  .zip  .exe`, exampleLang: "text", relatedTerms: ["Text File", "Upload", "Storage"], category: "file", level: "기초", keywords: ["binary", "바이너리"] },
+  { id: "fileext", term: "File Extension", koreanName: "파일 확장자", shortDescription: "파일 이름 끝에 붙어 파일의 종류를 알려주는 부분.", easyAnalogy: "파일이 문서인지 이미지인지 코드인지 알려주는 꼬리표입니다.", example: `.md   .json   .html   .png   .csv`, exampleLang: "text", relatedTerms: ["File Format", "MIME Type"], category: "file", level: "기초", keywords: ["확장자", "extension"] },
+  { id: "mime", term: "MIME Type", fullForm: "Multipurpose Internet Mail Extensions Type", shortDescription: "브라우저와 서버가 파일의 실제 데이터 종류를 구분할 때 사용하는 표준 정보.", easyAnalogy: "파일 확장자보다 더 정확하게 콘텐츠 종류를 알려주는 인터넷용 이름표입니다.", example: `application/json\ntext/html\nimage/png\napplication/pdf`, exampleLang: "text", relatedTerms: ["HTTP", "Upload", "File Extension"], category: "file", level: "심화", keywords: ["mime", "content-type"] },
 
   // 배포와 운영
   { id: "deploy", term: "Deploy / Publish", koreanName: "배포", shortDescription: "다른 사람이 접속할 수 있도록 웹앱을 인터넷에 공개하는 과정.", easyAnalogy: "공연장 개막.", useCase: "완성된 앱을 사용자에게 열어줄 때.", relatedTerms: ["Hosting", "Domain"], category: "deploy", level: "알아두면 좋음" },
@@ -211,14 +237,35 @@ const comparisons: Comparison[] = [
     { label: "Lovable AI", desc: "러버블 안에서 별도의 API 키 설정을 줄이고 생성형 AI 기능을 빠르게 붙이는 방식." },
     { label: "외부 AI API", desc: "Gemini, OpenAI, Claude 등 외부 회사의 API 키와 모델을 직접 연결하는 방식." },
   ], summary: "빠른 MVP는 Lovable AI, 모델·비용·이전성을 직접 관리하려면 외부 API.", caution: "Lovable AI도 내부적으로 AI 모델과 서버 자원을 사용하는 기능이므로 사용량과 비용을 확인해야 합니다." },
+  { id: "cmp-json-csv", title: "JSON과 CSV", items: [
+    { label: "JSON", desc: "중첩 구조와 다양한 데이터 형식을 표현하기 좋음." },
+    { label: "CSV", desc: "행과 열로 된 단순한 표 데이터를 저장하기 좋음." },
+  ], summary: "복잡한 앱 데이터는 JSON, 명렬·점수표 같은 표 데이터는 CSV." },
+  { id: "cmp-md-html", title: "Markdown과 HTML", items: [
+    { label: "Markdown", desc: "간단한 기호로 빠르게 문서를 작성하는 형식." },
+    { label: "HTML", desc: "웹페이지의 구조와 요소를 세밀하게 표현하는 언어." },
+  ], summary: "간단한 문서 작성은 Markdown, 웹페이지 구조 제작은 HTML." },
+  { id: "cmp-json-yaml", title: "JSON과 YAML", items: [
+    { label: "JSON", desc: "프로그램이 읽고 처리하기 쉽고 API 데이터에 많이 사용됨." },
+    { label: "YAML", desc: "사람이 읽기 쉬운 설정 파일에 많이 사용되며 들여쓰기가 중요함." },
+  ], summary: "데이터 교환은 JSON, 사람이 편집하는 설정은 YAML이 자주 사용됨." },
+  { id: "cmp-env-secret", title: ".env와 Secret 저장소", items: [
+    { label: ".env", desc: "개발 환경에서 환경 변수를 저장하는 로컬 설정 파일." },
+    { label: "Secret 저장소", desc: "배포된 서버 환경에서 API 키와 비밀값을 안전하게 보관하는 기능." },
+  ], summary: "로컬 설정은 .env, 운영 비밀값은 서버 측 Secret 저장소.", caution: ".env 파일만 사용한다고 API 키가 자동으로 안전해지는 것은 아닙니다. 브라우저에 전달되는 값은 노출될 수 있으므로 비밀키는 서버 측 Secret 저장소와 Server Function에서 사용해야 합니다." },
+  { id: "cmp-pkg-lock", title: "package.json과 package-lock.json", items: [
+    { label: "package.json", desc: "프로젝트가 필요로 하는 라이브러리와 실행 명령을 정의." },
+    { label: "package-lock.json", desc: "실제로 설치된 라이브러리의 정확한 버전을 기록." },
+  ], summary: "package.json은 필요한 재료 목록, lock 파일은 실제 사용한 정확한 버전 기록." },
 ];
 
-const suggestions = ["AI 연결", "데이터 저장", "로그인", "GitHub", "배포", "풀스택", "API 키", "MCP"];
+const suggestions = ["AI 연결", "데이터 저장", "로그인", "GitHub", "배포", "풀스택", "API 키", "MCP", "JSON", "Markdown", ".env", "CSV", "package.json", "TSX"];
 
 const guides = [
   { title: "처음이라면", body: "Frontend, Backend, Database, API, Prompt, MVP부터 살펴보세요.", ids: ["frontend", "backend", "database", "api", "prompt", "mvp"] },
   { title: "Lovable을 쓰려면", body: "Full Stack, Authentication, Secret, Deploy, GitHub를 알아두면 좋습니다.", ids: ["fullstack", "authentication", "secret", "deploy", "github"] },
   { title: "AI 기능을 넣으려면", body: "LLM, API Call, Token, MCP, RAG, Hallucination을 살펴보세요.", ids: ["llm", "apicall", "token", "mcp", "rag", "hallucination"] },
+  { title: "파일 이름이 낯설다면", body: "JSON, Markdown, CSV, .env, package.json부터 살펴보세요.", ids: ["json", "markdown", "csv", "envfile", "packagejson"] },
 ];
 
 function highlight(text: string, q: string) {
@@ -245,11 +292,41 @@ function TermTitle({ t }: { t: Term }) {
     <span className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
       <span className="font-semibold text-ink">{t.term}</span>
       {secondary && (
-        <span className="text-sm text-muted-text">
-          {t.fullForm ? `(${secondary})` : `(${secondary})`}
+        <span className="text-sm text-muted-text">({secondary})</span>
+      )}
+      {t.extension && (
+        <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-surface-cream-strong text-ink border border-hairline">
+          {t.extension}
         </span>
       )}
     </span>
+  );
+}
+
+function CodeBlock({ code, lang }: { code: string; lang?: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* noop */
+    }
+  };
+  return (
+    <div className="relative group">
+      <pre className="text-xs bg-ink/90 text-canvas rounded-md p-3 pr-10 overflow-x-auto font-mono leading-relaxed">
+        <code data-lang={lang}>{code}</code>
+      </pre>
+      <button
+        onClick={copy}
+        aria-label="코드 복사"
+        className="absolute top-2 right-2 p-1.5 rounded bg-canvas/10 hover:bg-canvas/20 text-canvas transition-colors"
+      >
+        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+      </button>
+    </div>
   );
 }
 
@@ -314,7 +391,7 @@ export default function Mod03() {
 
       <Section title="용어 사전" eyebrow="검색과 분류">
         {/* Learning guides */}
-        <div className="grid sm:grid-cols-3 gap-3 mb-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
           {guides.map((g) => (
             <div key={g.title} className="rounded-lg border border-hairline bg-surface-soft p-4">
               <div className="font-semibold text-ink mb-1">{g.title}</div>
@@ -439,6 +516,17 @@ export default function Mod03() {
                           <div>
                             <div className="text-xs font-semibold text-coral uppercase tracking-wider mb-0.5">어디에 쓰이나요?</div>
                             <p className="text-body">{t.useCase}</p>
+                          </div>
+                        )}
+                        {t.example && (
+                          <div>
+                            <div className="text-xs font-semibold text-coral uppercase tracking-wider mb-1">예시</div>
+                            <CodeBlock code={t.example} lang={t.exampleLang} />
+                          </div>
+                        )}
+                        {t.caution && (
+                          <div className="text-xs text-amber-900 bg-amber-50 border border-amber-200 rounded p-2">
+                            ⚠️ {t.caution}
                           </div>
                         )}
                         {t.relatedTerms && t.relatedTerms.length > 0 && (
