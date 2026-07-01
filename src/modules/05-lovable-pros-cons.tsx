@@ -15,25 +15,93 @@ import { Check, X, Wrench, Sparkles, Zap, Database, Rocket, MessageSquare, Githu
 
 const m = moduleByNumber(5)!;
 
-type Verdict = "fit" | "shrink" | "avoid";
-const projects: { text: string; answer: Verdict }[] = [
-  { text: "수업 중 토론 역할을 무작위 배정하는 미니 도구", answer: "fit" },
-  { text: "학생 실명과 상담 기록을 함께 다루는 통합 시스템", answer: "avoid" },
-  { text: "교사 한 명이 만든 형성평가 피드백 도우미", answer: "fit" },
-  { text: "전 학년 성적 입력 + 통지표 자동 발송 + 결제 연동", answer: "avoid" },
-  { text: "프로젝트 주제 추천 마법사 + 평가 기록 + 학부모 알림", answer: "shrink" },
-  { text: "단어 학습 카드 + 자가 점검 게임", answer: "fit" },
+type Verdict = "mvp" | "shrink" | "expert";
+type Project = {
+  text: string;
+  answer: Verdict;
+  feedback: string;
+  altFeedback: string;
+  tags: string[];
+};
+const projects: Project[] = [
+  {
+    text: "수업 중 토론 역할을 무작위로 배정하는 미니 도구",
+    answer: "mvp",
+    feedback:
+      "개인정보가 거의 필요하지 않고, 입력과 출력이 단순한 수업 운영 도구입니다. Lovable로 빠르게 구현하고 바로 수업에서 시험하기 좋습니다.",
+    altFeedback:
+      "위험 요소가 적고 기능이 단순해 굳이 범위를 더 줄이거나 전문 개발까지 갈 필요는 없습니다. Lovable로 바로 MVP를 만들어 수업에서 시험해 보세요.",
+    tags: ["낮은 위험", "단순한 기능", "수업용 MVP"],
+  },
+  {
+    text: "교사가 학생의 익명 서술형 답변을 입력하면 피드백 초안을 생성하는 도구",
+    answer: "mvp",
+    feedback:
+      "학생 실명을 사용하지 않고 교사가 최종 결과를 검토한다면 Lovable AI의 장점을 활용하기 좋은 MVP입니다. AI 결과를 그대로 확정하지 않는 검토 절차가 필요합니다.",
+    altFeedback:
+      "익명 데이터와 교사 검토가 전제된다면 Lovable AI로 충분히 다룰 수 있는 범위입니다. 처음부터 범위를 크게 줄이거나 외부 개발로 넘길 필요는 없습니다.",
+    tags: ["Lovable AI 활용", "교사 검토 필요", "익명 데이터"],
+  },
+  {
+    text: "단어 학습 카드와 자가 점검 게임",
+    answer: "mvp",
+    feedback:
+      "화면, 입력, 점수 계산과 같은 흐름이 단순하고 사용자 규모도 작아 Lovable에 잘 맞는 학습용 앱입니다.",
+    altFeedback:
+      "단순한 학습 게임이라 굳이 범위를 더 줄이거나 전문 개발이 필요하지 않습니다. Lovable로 바로 만들어 시험해 보세요.",
+    tags: ["학습 게임", "단순한 데이터", "빠른 배포"],
+  },
+  {
+    text: "프로젝트 주제를 추천하고 학생의 자기평가 기록을 저장하는 도구",
+    answer: "shrink",
+    feedback:
+      "주제 추천 기능은 Lovable AI로 쉽게 시험할 수 있지만, 학생별 장기 기록과 개인정보 저장 기능은 최소화해야 합니다. 먼저 익명 또는 기기 내 저장 방식으로 MVP를 만드는 것이 적절합니다.",
+    altFeedback:
+      "학생별 기록 저장은 신중해야 하지만, 주제 추천 자체는 Lovable로 충분히 시험할 수 있습니다. 저장 범위를 줄인 프로토타입으로 접근하는 것이 균형 잡힌 선택입니다.",
+    tags: ["AI 추천", "데이터 저장 주의", "범위 축소"],
+  },
+  {
+    text: "학생 실명과 상담 기록을 함께 관리하고 AI가 상담 전략을 추천하는 통합 시스템",
+    answer: "expert",
+    feedback:
+      "학생 실명과 상담 기록은 민감정보에 해당합니다. 단순한 프로토타입을 넘어 실제 운영하려면 개인정보 보호, 접근 권한, 저장 위치, 보안 정책을 전문적으로 검토해야 합니다.",
+    altFeedback:
+      "민감정보와 상담 기록이 결합된 시스템은 MVP나 프로토타입 수준으로 접근하기에는 위험이 큽니다. 전문 개발과 별도의 보안·개인정보 검토가 필요합니다.",
+    tags: ["민감정보", "복잡한 권한", "고위험"],
+  },
+  {
+    text: "전 학년 성적 입력, 통지표 자동 발송, 보호자 확인, 결제 기능을 함께 제공하는 시스템",
+    answer: "expert",
+    feedback:
+      "성적, 보호자 정보, 자동 발송, 결제 기능은 오류의 영향이 크고 권한 구조도 복잡합니다. 초기 Lovable 프로젝트로 다루기에는 위험도가 높습니다.",
+    altFeedback:
+      "성적과 결제, 보호자 알림이 동시에 얽힌 시스템은 MVP나 프로토타입만으로는 안전하게 다루기 어렵습니다. 전문 개발과 운영 설계를 함께 검토해야 합니다.",
+    tags: ["성적 데이터", "결제", "높은 오류 영향"],
+  },
+  {
+    text: "교사 10명이 사용하는 형성평가 피드백 도우미",
+    answer: "mvp",
+    feedback:
+      "소규모 사용자 환경에서 AI 기능의 효과와 비용을 검증하기 좋은 프로젝트입니다. 다만 사용량이 늘어날 경우 Lovable AI 크레딧과 운영 비용을 점검해야 합니다.",
+    altFeedback:
+      "10명 규모라면 Lovable로 충분히 다룰 수 있는 범위입니다. 처음부터 범위를 줄이거나 외부 개발로 넘기기보다, MVP로 만들어 사용량과 효과를 검증해 보세요.",
+    tags: ["소규모 사용자", "AI MVP", "비용 검증"],
+  },
+  {
+    text: "전국의 교사와 학생 수천 명이 매일 사용하는 AI 문항 생성 서비스",
+    answer: "shrink",
+    feedback:
+      "아이디어 검증용 MVP는 Lovable로 만들 수 있지만, 대규모 사용자와 반복적인 AI 호출은 비용과 성능 부담이 큽니다. 소수 사용자를 대상으로 먼저 기능과 사용량을 검증해야 합니다.",
+    altFeedback:
+      "완성형 서비스로 처음부터 만들면 비용·성능 부담이 큽니다. 그렇다고 Lovable이 아예 안 되는 영역도 아니므로, 소수 대상 프로토타입으로 범위를 줄여 시작하는 것이 적절합니다.",
+    tags: ["대규모 사용자", "높은 AI 호출량", "비용 위험"],
+  },
 ];
 
 const labels: Record<Verdict, string> = {
-  fit: "러버블 첫 프로젝트로 적합",
-  shrink: "범위를 줄여야 함",
-  avoid: "피하는 것이 좋음",
-};
-const rationale: Record<Verdict, string> = {
-  fit: "입력 → 처리 → 출력의 단순 흐름과 낮은 위험 — 첫 프로젝트로 좋습니다.",
-  shrink: "기능이 많아 오류 가능성이 큽니다. 핵심 하나로 줄여 시작하세요.",
-  avoid: "민감 정보·고위험 결정·복잡한 권한이 얽혀 있어 다른 접근이 필요합니다.",
+  mvp: "Lovable로 바로 MVP 제작",
+  shrink: "범위를 줄여 프로토타입 제작",
+  expert: "전문 개발·별도 검토 필요",
 };
 
 export default function Mod05() {
