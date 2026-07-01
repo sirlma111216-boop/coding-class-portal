@@ -59,25 +59,214 @@ export default function Mod05() {
       <Section title="장점과 한계">
         <div className="grid md:grid-cols-2 gap-4">
           <ConceptCard title="장점">
-            <ul className="space-y-2 list-disc list-inside">
-              <li>자연어로 화면과 기능을 빠르게 만들 수 있다.</li>
-              <li>짧은 시간에 실제 작동하는 웹앱을 시험할 수 있다.</li>
-              <li>화면, 코드, 데이터 연결, 배포를 한 프로젝트에서 경험한다.</li>
-              <li>대화로 수정을 반복할 수 있다.</li>
-              <li>GitHub와 연결해 코드를 보관·확장할 수 있다.</li>
-              <li>백엔드와 AI 기능을 단계적으로 연결할 수 있다.</li>
+            <div className="bg-success/10 border border-success/30 rounded-lg p-4 mb-5">
+              <p className="font-semibold text-ink mb-1.5 flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                프론트엔드부터 AI·백엔드·배포까지, 풀스택 제작이 쉽다
+              </p>
+              <p className="text-xs text-body leading-relaxed">
+                여러 개발 도구를 따로 설정하지 않아도 하나의 작업 흐름 안에서 작동하는 웹앱을 빠르게 만들 수 있습니다.
+              </p>
+            </div>
+
+            <ul className="space-y-3">
+              <li className="bg-surface-cream-strong border border-hairline rounded-lg p-3">
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
+                  <Zap className="w-4 h-4 text-coral mt-0.5 shrink-0" />
+                  풀스택 제작이 쉽다
+                </p>
+                <p className="text-xs text-body leading-relaxed">
+                  화면 제작뿐 아니라 데이터베이스, 인증, 백엔드 기능, 배포까지 단계적으로 연결할 수 있다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
+                  <Database className="w-4 h-4 text-teal mt-0.5 shrink-0" />
+                  백엔드와 데이터베이스 연결이 간편하다
+                </p>
+                <p className="text-xs text-muted-text leading-relaxed">
+                  Lovable Cloud나 Supabase를 활용해 로그인, 데이터 저장, 사용자별 기록 기능 등을 비교적 쉽게 구현할 수 있다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
+                  <Rocket className="w-4 h-4 text-coral mt-0.5 shrink-0" />
+                  배포 과정이 매우 간단하다
+                </p>
+                <p className="text-xs text-muted-text leading-relaxed">
+                  별도의 서버 설정에 익숙하지 않아도 작동하는 웹앱을 빠르게 배포하고 공유할 수 있다.
+                </p>
+              </li>
+              <li className="bg-coral/10 border border-coral/25 rounded-lg p-3">
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1 flex-wrap">
+                  <BrainCircuit className="w-4 h-4 text-coral mt-0.5 shrink-0" />
+                  <span className="flex-1">Lovable AI로 생성형 AI 기능을 빠르게 추가할 수 있다</span>
+                  <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-pill bg-coral text-white font-medium">
+                    MVP에 강점
+                  </span>
+                </p>
+                <p className="text-xs text-body leading-relaxed">
+                  초기 프로토타입에서는 외부 AI 서비스의 API 키를 별도로 준비하지 않고도 AI 기능을 구현할 수 있다.
+                </p>
+              </li>
+              <li className="bg-surface-cream-strong border border-hairline rounded-lg p-3">
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
+                  <Rocket className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  MVP 제작에 특히 유리하다
+                </p>
+                <p className="text-xs text-body leading-relaxed">
+                  아이디어를 짧은 시간 안에 실제 작동하는 형태로 만들고 수업이나 사용자 환경에서 시험할 수 있다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
+                  <MessageSquare className="w-4 h-4 text-amber mt-0.5 shrink-0" />
+                  대화형 수정이 가능하다
+                </p>
+                <p className="text-xs text-muted-text leading-relaxed">
+                  자연어로 기능과 화면 수정을 반복하며 빠르게 개선할 수 있다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-ink flex items-start gap-2 mb-1">
+                  <Github className="w-4 h-4 text-ink mt-0.5 shrink-0" />
+                  GitHub와 연결해 확장할 수 있다
+                </p>
+                <p className="text-xs text-muted-text leading-relaxed">
+                  코드를 저장하고 이후 다른 개발 환경에서 이어서 작업할 수 있다.
+                </p>
+              </li>
             </ul>
           </ConceptCard>
-          <ConceptCard title="한계와 주의점" tone="dark">
-            <ul className="space-y-2 list-disc list-inside">
-              <li>모호한 요청은 모호한 결과를 만든다.</li>
-              <li>기능을 한꺼번에 많이 요구하면 오류 가능성이 커진다.</li>
-              <li>생성된 코드와 보안 설정은 사람이 검토해야 한다.</li>
-              <li>복잡한 앱은 반복 수정과 테스트가 필요하다.</li>
-              <li>사용량·기능·인터페이스는 서비스 정책에 따라 변할 수 있다.</li>
-              <li>학생 개인정보와 API 키는 자동으로 안전해지지 않는다.</li>
+
+          <ConceptCard title="단점과 한계" tone="dark">
+            <div className="bg-warning/15 border border-warning/40 rounded-lg p-4 mb-5">
+              <p className="font-semibold text-on-dark flex items-start gap-2 mb-1.5">
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5 shrink-0" />
+                크레딧 소모가 빠르고, 사용량이 늘수록 비용 부담이 커질 수 있다
+              </p>
+              <p className="text-xs text-on-dark-soft leading-relaxed">
+                수정과 재생성을 반복하거나 여러 프로젝트를 동시에 개발하면 유료 크레딧이 예상보다 빠르게 소모될 수 있습니다.
+              </p>
+            </div>
+
+            <ul className="space-y-3">
+              <li className="bg-error/15 border border-error/30 rounded-lg p-3">
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1 flex-wrap">
+                  <CreditCard className="w-4 h-4 text-error mt-0.5 shrink-0" />
+                  <span className="flex-1">크레딧 소모가 매우 빠를 수 있다</span>
+                  <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-pill bg-error text-white font-medium">
+                    가장 큰 단점
+                  </span>
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  기능 추가, 오류 수정, 화면 재생성을 반복하다 보면 결제한 크레딧이 빠르게 줄어들 수 있다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
+                  <TrendingUp className="w-4 h-4 text-warning mt-0.5 shrink-0" />
+                  여러 앱을 개발하면 비용 부담이 커진다
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  프로젝트 수가 늘거나 복잡한 기능을 자주 수정할수록 제작 비용을 예측하기 어려울 수 있다.
+                </p>
+              </li>
+              <li className="bg-warning/15 border border-warning/40 rounded-lg p-3">
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1 flex-wrap">
+                  <Server className="w-4 h-4 text-warning mt-0.5 shrink-0" />
+                  <span className="flex-1">Lovable AI는 상용 서비스 단계에서 비용 위험이 있다</span>
+                  <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-pill bg-warning text-surface-dark font-medium">
+                    확장 시 주의
+                  </span>
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  MVP에서는 편리하지만 사용자가 많아지고 AI 호출이 늘어나면 Cloud & AI 사용 비용을 지속적으로 관리해야 한다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
+                  <ShieldAlert className="w-4 h-4 text-on-dark-soft mt-0.5 shrink-0" />
+                  플랫폼 의존성이 생길 수 있다
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  Lovable의 Cloud, AI, 배포 기능에 크게 의존하면 다른 플랫폼으로 이전할 때 추가 작업이 필요할 수 있다.
+                </p>
+              </li>
+              <li className="bg-error/15 border border-error/30 rounded-lg p-3">
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1 flex-wrap">
+                  <BrainCircuit className="w-4 h-4 text-error mt-0.5 shrink-0" />
+                  <span className="flex-1">AI의 코드 생성 성능이 항상 최상급인 것은 아니다</span>
+                  <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-pill bg-error text-white font-medium">
+                    복잡한 작업 주의
+                  </span>
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  복잡한 로직이나 정교한 수정에서는 다른 주요 코딩 AI 도구보다 결과의 정확도나 문제 해결 능력이 부족하게 느껴질 수 있다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
+                  <AlertCircle className="w-4 h-4 text-warning mt-0.5 shrink-0" />
+                  기능을 한꺼번에 많이 요청하면 오류 가능성이 커진다
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  기능을 작은 단계로 나누어 요청하고 매 단계 테스트해야 한다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
+                  <ShieldAlert className="w-4 h-4 text-on-dark-soft mt-0.5 shrink-0" />
+                  생성된 코드와 보안 설정은 사람이 검토해야 한다
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  자동 생성된 데이터 처리, 인증, 권한, API 설정을 그대로 신뢰해서는 안 된다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
+                  <Wrench className="w-4 h-4 text-on-dark-soft mt-0.5 shrink-0" />
+                  복잡한 앱은 반복적인 수정과 테스트가 필요하다
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  간단한 MVP는 빠르게 만들 수 있지만 안정적인 상용 서비스는 별도의 검증과 개발 역량이 필요하다.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold text-on-dark flex items-start gap-2 mb-1">
+                  <ShieldAlert className="w-4 h-4 text-on-dark-soft mt-0.5 shrink-0" />
+                  학생 개인정보와 API 키는 자동으로 안전해지지 않는다
+                </p>
+                <p className="text-xs text-on-dark-soft leading-relaxed">
+                  민감한 정보는 입력하지 않고, API 키와 비밀값은 서버 측 보안 저장소에서 관리해야 한다.
+                </p>
+              </li>
             </ul>
           </ConceptCard>
+        </div>
+
+        <div className="mt-6 bg-surface-soft border border-hairline rounded-lg p-6">
+          <h3 className="serif text-xl text-ink mb-3">Lovable은 언제 가장 강력한가?</h3>
+          <p className="text-sm text-body leading-relaxed mb-5">
+            수업 아이디어를 빠르게 검증하고 첫 번째 작동형 웹앱을 만드는 MVP 단계에서는 매우 강력합니다. 그러나 다수의 사용자가 지속적으로 이용하는 상용 서비스로 확장할 때는 크레딧, AI 호출 비용, 보안, 성능, 플랫폼 의존성을 별도로 검토해야 합니다.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-3">
+            <div className="bg-canvas border border-hairline rounded-lg p-4">
+              <p className="text-xs uppercase tracking-widest text-muted-text font-medium mb-2">아이디어 → MVP 제작</p>
+              <p className="font-semibold text-ink mb-1">추천도: 매우 높음</p>
+              <p className="text-xs text-body">풀스택 구현, AI 연결, 배포가 빠르고 간편함</p>
+            </div>
+            <div className="bg-canvas border border-hairline rounded-lg p-4">
+              <p className="text-xs uppercase tracking-widest text-muted-text font-medium mb-2">MVP → 실제 수업 적용</p>
+              <p className="font-semibold text-ink mb-1">추천도: 높음</p>
+              <p className="text-xs text-body">소규모 사용자 환경에서 기능을 시험하고 개선하기 좋음</p>
+            </div>
+            <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-widest text-warning font-medium mb-2">대규모·상용 서비스</p>
+              <p className="font-semibold text-ink mb-1">추천도: 신중한 검토 필요</p>
+              <p className="text-xs text-body">크레딧, AI 사용량, 서버 비용, 보안, 성능 검토 필요</p>
+            </div>
+          </div>
         </div>
       </Section>
 
