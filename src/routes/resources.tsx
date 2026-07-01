@@ -393,6 +393,40 @@ ${simpleBundle
         링크를 모았습니다.
       </p>
 
+      {/* Simple bundle actions */}
+      <section className="mb-6 bg-surface-cream-strong rounded-lg p-6">
+        <div className="flex items-start justify-between flex-wrap gap-3 mb-2">
+          <div>
+            <h2 className="serif text-2xl mb-1">첫 번째 완성 경험 — 초간단 실습 자료</h2>
+            <p className="text-sm text-body">
+              입력 항목 안내, 프롬프트 구조, 성공 기준, 막혔을 때 예시를 한 번에 내려받으세요.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-3">
+          <button
+            onClick={copySimpleBundle}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-coral text-white hover:bg-coral-active"
+          >
+            {copiedId === "simple-all" ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copiedId === "simple-all" ? "복사됨" : "전체 복사"}
+          </button>
+          <button
+            onClick={downloadSimpleBundle}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90"
+          >
+            <Download className="w-3.5 h-3.5" /> Markdown 다운로드
+          </button>
+          <Link
+            to="/modules/$slug"
+            params={{ slug: "07-first-project" }}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md border border-hairline hover:bg-canvas"
+          >
+            실습 페이지로 이동 →
+          </Link>
+        </div>
+      </section>
+
       {/* Feedback bundle actions */}
       <section className="mb-10 bg-surface-cream-strong rounded-lg p-6">
         <div className="flex items-start justify-between flex-wrap gap-3 mb-2">
