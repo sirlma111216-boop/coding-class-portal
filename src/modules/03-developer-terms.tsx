@@ -237,14 +237,35 @@ const comparisons: Comparison[] = [
     { label: "Lovable AI", desc: "러버블 안에서 별도의 API 키 설정을 줄이고 생성형 AI 기능을 빠르게 붙이는 방식." },
     { label: "외부 AI API", desc: "Gemini, OpenAI, Claude 등 외부 회사의 API 키와 모델을 직접 연결하는 방식." },
   ], summary: "빠른 MVP는 Lovable AI, 모델·비용·이전성을 직접 관리하려면 외부 API.", caution: "Lovable AI도 내부적으로 AI 모델과 서버 자원을 사용하는 기능이므로 사용량과 비용을 확인해야 합니다." },
+  { id: "cmp-json-csv", title: "JSON과 CSV", items: [
+    { label: "JSON", desc: "중첩 구조와 다양한 데이터 형식을 표현하기 좋음." },
+    { label: "CSV", desc: "행과 열로 된 단순한 표 데이터를 저장하기 좋음." },
+  ], summary: "복잡한 앱 데이터는 JSON, 명렬·점수표 같은 표 데이터는 CSV." },
+  { id: "cmp-md-html", title: "Markdown과 HTML", items: [
+    { label: "Markdown", desc: "간단한 기호로 빠르게 문서를 작성하는 형식." },
+    { label: "HTML", desc: "웹페이지의 구조와 요소를 세밀하게 표현하는 언어." },
+  ], summary: "간단한 문서 작성은 Markdown, 웹페이지 구조 제작은 HTML." },
+  { id: "cmp-json-yaml", title: "JSON과 YAML", items: [
+    { label: "JSON", desc: "프로그램이 읽고 처리하기 쉽고 API 데이터에 많이 사용됨." },
+    { label: "YAML", desc: "사람이 읽기 쉬운 설정 파일에 많이 사용되며 들여쓰기가 중요함." },
+  ], summary: "데이터 교환은 JSON, 사람이 편집하는 설정은 YAML이 자주 사용됨." },
+  { id: "cmp-env-secret", title: ".env와 Secret 저장소", items: [
+    { label: ".env", desc: "개발 환경에서 환경 변수를 저장하는 로컬 설정 파일." },
+    { label: "Secret 저장소", desc: "배포된 서버 환경에서 API 키와 비밀값을 안전하게 보관하는 기능." },
+  ], summary: "로컬 설정은 .env, 운영 비밀값은 서버 측 Secret 저장소.", caution: ".env 파일만 사용한다고 API 키가 자동으로 안전해지는 것은 아닙니다. 브라우저에 전달되는 값은 노출될 수 있으므로 비밀키는 서버 측 Secret 저장소와 Server Function에서 사용해야 합니다." },
+  { id: "cmp-pkg-lock", title: "package.json과 package-lock.json", items: [
+    { label: "package.json", desc: "프로젝트가 필요로 하는 라이브러리와 실행 명령을 정의." },
+    { label: "package-lock.json", desc: "실제로 설치된 라이브러리의 정확한 버전을 기록." },
+  ], summary: "package.json은 필요한 재료 목록, lock 파일은 실제 사용한 정확한 버전 기록." },
 ];
 
-const suggestions = ["AI 연결", "데이터 저장", "로그인", "GitHub", "배포", "풀스택", "API 키", "MCP"];
+const suggestions = ["AI 연결", "데이터 저장", "로그인", "GitHub", "배포", "풀스택", "API 키", "MCP", "JSON", "Markdown", ".env", "CSV", "package.json", "TSX"];
 
 const guides = [
   { title: "처음이라면", body: "Frontend, Backend, Database, API, Prompt, MVP부터 살펴보세요.", ids: ["frontend", "backend", "database", "api", "prompt", "mvp"] },
   { title: "Lovable을 쓰려면", body: "Full Stack, Authentication, Secret, Deploy, GitHub를 알아두면 좋습니다.", ids: ["fullstack", "authentication", "secret", "deploy", "github"] },
   { title: "AI 기능을 넣으려면", body: "LLM, API Call, Token, MCP, RAG, Hallucination을 살펴보세요.", ids: ["llm", "apicall", "token", "mcp", "rag", "hallucination"] },
+  { title: "파일 이름이 낯설다면", body: "JSON, Markdown, CSV, .env, package.json부터 살펴보세요.", ids: ["json", "markdown", "csv", "envfile", "packagejson"] },
 ];
 
 function highlight(text: string, q: string) {
