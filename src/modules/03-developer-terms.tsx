@@ -292,11 +292,41 @@ function TermTitle({ t }: { t: Term }) {
     <span className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
       <span className="font-semibold text-ink">{t.term}</span>
       {secondary && (
-        <span className="text-sm text-muted-text">
-          {t.fullForm ? `(${secondary})` : `(${secondary})`}
+        <span className="text-sm text-muted-text">({secondary})</span>
+      )}
+      {t.extension && (
+        <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-surface-cream-strong text-ink border border-hairline">
+          {t.extension}
         </span>
       )}
     </span>
+  );
+}
+
+function CodeBlock({ code, lang }: { code: string; lang?: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* noop */
+    }
+  };
+  return (
+    <div className="relative group">
+      <pre className="text-xs bg-ink/90 text-canvas rounded-md p-3 pr-10 overflow-x-auto font-mono leading-relaxed">
+        <code data-lang={lang}>{code}</code>
+      </pre>
+      <button
+        onClick={copy}
+        aria-label="코드 복사"
+        className="absolute top-2 right-2 p-1.5 rounded bg-canvas/10 hover:bg-canvas/20 text-canvas transition-colors"
+      >
+        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+      </button>
+    </div>
   );
 }
 
