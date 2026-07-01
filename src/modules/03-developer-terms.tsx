@@ -11,7 +11,7 @@ import {
 
 const m = moduleByNumber(3)!;
 
-type Category = "ui" | "data" | "ai" | "design" | "code" | "deploy";
+type Category = "ui" | "data" | "ai" | "design" | "code" | "file" | "deploy";
 type Level = "기초" | "알아두면 좋음" | "심화";
 
 type Term = {
@@ -19,9 +19,13 @@ type Term = {
   term: string;
   fullForm?: string;
   koreanName?: string;
+  extension?: string;
   shortDescription: string;
   easyAnalogy?: string;
   useCase?: string;
+  example?: string;
+  exampleLang?: "json" | "yaml" | "markdown" | "xml" | "csv" | "text";
+  caution?: string;
   relatedTerms?: string[];
   category: Category;
   level: Level;
