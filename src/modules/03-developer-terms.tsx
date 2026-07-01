@@ -518,6 +518,17 @@ export default function Mod03() {
                             <p className="text-body">{t.useCase}</p>
                           </div>
                         )}
+                        {t.example && (
+                          <div>
+                            <div className="text-xs font-semibold text-coral uppercase tracking-wider mb-1">예시</div>
+                            <CodeBlock code={t.example} lang={t.exampleLang} />
+                          </div>
+                        )}
+                        {t.caution && (
+                          <div className="text-xs text-amber-900 bg-amber-50 border border-amber-200 rounded p-2">
+                            ⚠️ {t.caution}
+                          </div>
+                        )}
                         {t.relatedTerms && t.relatedTerms.length > 0 && (
                           <div>
                             <div className="text-xs font-semibold text-coral uppercase tracking-wider mb-1">함께 보면 좋은 용어</div>
