@@ -26,7 +26,7 @@ type Resource = {
   body: string;
   moduleSlug?: string;
   moduleLabel?: string;
-  bundle?: "feedback";
+  bundle?: "feedback" | "simple";
 };
 
 // ===== Module 7 bundle (AI 형성평가 피드백 도우미) =====
