@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Search, ChevronDown } from "lucide-react";
+import { Search, ChevronDown, Copy, Check } from "lucide-react";
 import { moduleByNumber } from "@/data/course";
 import {
   ModuleHeader,
