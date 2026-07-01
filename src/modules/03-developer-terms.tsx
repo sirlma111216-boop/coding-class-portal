@@ -391,7 +391,7 @@ export default function Mod03() {
 
       <Section title="용어 사전" eyebrow="검색과 분류">
         {/* Learning guides */}
-        <div className="grid sm:grid-cols-3 gap-3 mb-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
           {guides.map((g) => (
             <div key={g.title} className="rounded-lg border border-hairline bg-surface-soft p-4">
               <div className="font-semibold text-ink mb-1">{g.title}</div>
