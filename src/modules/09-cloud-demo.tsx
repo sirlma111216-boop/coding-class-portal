@@ -57,8 +57,6 @@ const LS = {
   playerKey: "vibecoding:mod09:demo:playerKey",
   classCode: "vibecoding:mod09:demo:classCode",
   nickname: "vibecoding:mod09:demo:nickname",
-  affiliation: "vibecoding:mod09:demo:affiliation",
-  role: "vibecoding:mod09:demo:role",
 };
 
 function makeId(prefix = "id") {
