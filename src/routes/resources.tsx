@@ -449,8 +449,16 @@ ${simpleBundle
 `;
   }, [simpleBundle]);
 
+  const policyBundle = resources.filter((r) => r.bundle === "policy");
+  const policyBundleMarkdown = useMemo(() => {
+    return `# 이용약관·개인정보처리방침과 푸터 제작 — 자료 묶음\n\n> 공개 웹앱에 정책 문서와 공통 푸터를 추가하는 실습 자료입니다.\n\n${policyBundle
+      .map((r) => `\n## ${r.title}\n\n_언제 쓰나요:_ ${r.when}\n\n\`\`\`markdown\n${r.body}\n\`\`\`\n`)
+      .join("\n")}\n`;
+  }, [policyBundle]);
+
   const copyAllBundle = () => copy("bundle-all", bundleMarkdown);
   const copySimpleBundle = () => copy("simple-all", simpleMarkdown);
+  const copyPolicyBundle = () => copy("policy-all", policyBundleMarkdown);
 
   const downloadBundle = () => {
     const blob = new Blob([bundleMarkdown], { type: "text/markdown;charset=utf-8" });
