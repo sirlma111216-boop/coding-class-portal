@@ -219,7 +219,7 @@ export function DesignPrepSection() {
         앱의 기능을 정했다면 디자인과 글꼴의 방향을 간단히 선택해 보세요.
       </p>
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
         {/* Card 1 — Design */}
         <div className="bg-surface-card rounded-2xl p-6 flex flex-col">
           <span className="inline-block self-start text-[11px] font-medium px-2 py-0.5 rounded-full bg-coral/10 text-coral mb-3">
