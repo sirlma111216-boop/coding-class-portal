@@ -143,7 +143,6 @@ ${p.output}
 
 export default function Mod11() {
   const [project, setProject] = useLocalStorage<Project>("vibecoding:mod11:project", empty);
-  const [stagesDone, setStagesDone] = useLocalStorage<boolean[]>("vibecoding:mod11:stages", stages.map(() => false));
   const [rubric, setRubric] = useLocalStorage<number[]>("vibecoding:mod11:rubric", rubricAreas.map(() => 0));
   const [copied, setCopied] = useState<"md" | "prompt" | null>(null);
 
