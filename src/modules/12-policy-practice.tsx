@@ -481,10 +481,10 @@ function DownloadCard({
       <p className="text-xs text-muted-text mb-4 flex-1">
         파일명: <code className="text-ink">{filename}</code>
       </p>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col gap-2">
         <button
           onClick={() => downloadMarkdown(filename, markdown)}
-          className="inline-flex items-center gap-1.5 text-sm px-3 py-2 rounded-md bg-coral text-white hover:bg-coral-active"
+          className="inline-flex items-center justify-center gap-1.5 text-sm px-3 py-2 rounded-md bg-coral text-white hover:bg-coral-active w-full"
         >
           <Download className="w-3.5 h-3.5" />
           {filename} 다운로드
@@ -492,7 +492,7 @@ function DownloadCard({
         <button
           ref={triggerRef}
           onClick={onPreview}
-          className="inline-flex items-center gap-1.5 text-sm px-3 py-2 rounded-md border border-hairline hover:bg-surface-card"
+          className="inline-flex items-center justify-center gap-1.5 text-sm px-3 py-2 rounded-md border border-hairline hover:bg-surface-card w-full"
         >
           <Eye className="w-3.5 h-3.5" /> 내용 미리보기
         </button>
