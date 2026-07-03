@@ -152,24 +152,3 @@ export default function Mod11() {
   );
 }
 
-function Field({ label, value, onChange, rows = 1 }: { label: string; value: string; onChange: (v: string) => void; rows?: number }) {
-  return (
-    <label className="block mb-2">
-      <span className="block text-xs font-medium text-ink mb-1">{label}</span>
-      {rows > 1 ? (
-        <textarea
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          rows={rows}
-          className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas focus:border-coral outline-none text-sm"
-        />
-      ) : (
-        <input
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas focus:border-coral outline-none text-sm"
-        />
-      )}
-    </label>
-  );
-}
