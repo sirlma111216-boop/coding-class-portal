@@ -1043,9 +1043,6 @@ function Leaderboard(props: {
                 <td className="py-2 pr-2 text-muted-text">{i + 1}</td>
                 <td className="py-2 pr-2 text-body-strong">
                   {p.nickname}
-                  {p.affiliation && (
-                    <span className="text-xs text-muted-text"> · {p.affiliation}</span>
-                  )}
                   {p.participant_id === props.meId && (
                     <span className="ml-2 text-[10px] bg-coral text-white px-1.5 py-0.5 rounded">
                       나
@@ -1087,7 +1084,7 @@ function aggType() {
   return [] as {
     participant_id: string;
     nickname: string;
-    affiliation: string | null;
+    
     best: number;
     total: number;
     count: number;
