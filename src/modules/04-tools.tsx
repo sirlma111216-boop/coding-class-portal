@@ -1051,7 +1051,7 @@ function RecommendationWizard() {
             onClick={() => setDetail(top.tool)}
             className="text-sm font-medium px-4 py-2 rounded-md bg-coral text-white hover:bg-coral/90"
           >
-            {top.tool.status === "ready" ? "이 도구로 학습 시작" : "도구 소개 보기"}
+            도구 소개 보기
           </button>
         </div>
 
