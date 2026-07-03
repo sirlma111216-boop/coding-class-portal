@@ -13,33 +13,6 @@ import { DesignPrepSection } from "./11-design-prep";
 
 const m = moduleByNumber(11)!;
 
-type Project = {
-  title: string;
-  subject: string;
-  problem: string;
-  user: string;
-  feature1: string;
-  feature2: string;
-  feature3: string;
-  input: string;
-  process: string;
-  output: string;
-  studentChange: string;
-  ethical: string;
-  testResult: string;
-  nextImprovement: string;
-  sentence1: string;
-  sentence2: string;
-  sentence3: string;
-};
-
-const empty: Project = {
-  title: "", subject: "", problem: "", user: "",
-  feature1: "", feature2: "", feature3: "",
-  input: "", process: "", output: "",
-  studentChange: "", ethical: "", testResult: "", nextImprovement: "",
-  sentence1: "", sentence2: "", sentence3: "",
-};
 
 const stages = [
   { name: "문제 정의", time: "15분", desc: "내일 수업에서도 다시 생길 가능성이 높은 병목 하나를 정한다." },
