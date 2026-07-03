@@ -345,6 +345,36 @@ AI 역할: 입력을 분석해 JSON {encouragement, strength, improvement, nextA
 9. 학습 목표·기능 연결
 10. 외부 공유 범위 확인`,
   },
+  {
+    id: "policy-terms-example", title: "이용약관_예시.md", when: "앱 공개 직전에 이용약관을 만들 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "이용약관_예시.md",
+    body: exampleTermsMarkdown,
+  },
+  {
+    id: "policy-privacy-example", title: "개인정보처리방침_예시.md", when: "앱 공개 직전에 개인정보처리방침을 만들 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "개인정보처리방침_예시.md",
+    body: examplePrivacyMarkdown,
+  },
+  {
+    id: "policy-edit-checklist", title: "문서 수정 체크리스트", when: "예시 파일을 내 앱에 맞게 다듬을 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "문서_수정_체크리스트.md",
+    body: `# 문서 수정 체크리스트\n\n${EDIT_CHECKLIST.map((t, i) => `${i + 1}. ${t}`).join("\n")}\n`,
+  },
+  {
+    id: "policy-attach-guide", title: "Lovable 파일 첨부 방법", when: "수정한 두 파일을 Lovable에 보낼 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "Lovable_파일_첨부_방법.md",
+    body: attachInstructions,
+  },
+  {
+    id: "policy-footer-prompt", title: "공통 푸터 제작 영문 프롬프트", when: "이용약관·개인정보처리방침을 첨부하고 푸터를 요청할 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "공통_푸터_제작_프롬프트.md",
+    body: FOOTER_PROMPT,
+  },
+  {
+    id: "policy-final-check", title: "적용 후 최종 확인 체크리스트", when: "푸터 적용 결과를 점검할 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "적용_후_최종_확인_체크리스트.md",
+    body: `# 푸터 적용 후 확인할 것\n\n${FINAL_CHECKLIST.map((t, i) => `${i + 1}. ${t}`).join("\n")}\n`,
+  },
 ];
 
 const docs: Array<[string, string]> = [
