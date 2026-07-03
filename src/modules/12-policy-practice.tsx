@@ -470,7 +470,7 @@ function DownloadCard({
   filename: string;
   markdown: string;
   onPreview: () => void;
-  triggerRef: React.RefObject<HTMLButtonElement>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
 }) {
   return (
     <div className="bg-canvas border border-hairline rounded-lg p-5 flex flex-col">
