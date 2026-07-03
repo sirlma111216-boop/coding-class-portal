@@ -221,6 +221,8 @@ export default function Mod11() {
         </div>
       </Section>
 
+      <DesignPrepSection />
+
       <Section title="90분 프로젝트 보드">
         <ol className="space-y-2">
           {stages.map((s, i) => (
