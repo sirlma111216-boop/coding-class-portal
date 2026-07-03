@@ -678,7 +678,6 @@ function OnboardForm(props: {
           className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas"
         />
       </Field>
-      </Field>
       <button
         type="submit"
         disabled={props.saving}
