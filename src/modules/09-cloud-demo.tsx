@@ -158,10 +158,10 @@ export function CloudDbDemoSection() {
     if (!savedClass) return;
     (async () => {
       const { data } = await supabase
-        .from("demo_participants")
-        .select("*")
-        .eq("player_key", playerKey)
-        .eq("class_code", savedClass)
+        .rpc("find_demo_participant", {
+          _player_key: playerKey,
+          _class_code: savedClass,
+        })
         .maybeSingle();
       if (data) {
         setMe(data as Participant);
