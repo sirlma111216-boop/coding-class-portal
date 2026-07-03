@@ -159,16 +159,16 @@ function DesignModal({ onClose }: { onClose: () => void }) {
               원본 사이트의 로고, 브랜드 이름, 사진과 콘텐츠를 그대로 복제하지 마세요.
             </p>
 
-            {steps.map((s) => (
+            {steps.map((s, i) => (
               <div key={s.title} className="bg-surface-card rounded-lg p-4 sm:p-5">
                 <h4 className="serif text-lg text-ink">{s.title}</h4>
                 <p className="text-sm text-body mt-1">{s.desc}</p>
                 <button
                   onClick={() => setLightbox({ src: s.img, alt: s.alt })}
-                  className="block w-full mt-3 rounded-md overflow-hidden bg-canvas border border-hairline hover:border-coral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral"
+                  className={`block mt-3 rounded-md overflow-hidden bg-canvas border border-hairline hover:border-coral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral ${i === 3 ? "max-w-[180px]" : "w-full"}`}
                   aria-label={`${s.alt} — 확대`}
                 >
-                  <img src={s.img} alt={s.alt} className="w-full h-auto object-contain max-h-[420px] mx-auto" loading="lazy" />
+                  <img src={s.img} alt={s.alt} className={`w-full h-auto object-contain mx-auto ${i === 3 ? "max-h-[100px]" : "max-h-[420px]"}`} loading="lazy" />
                 </button>
                 {s.link && (
                   <a
