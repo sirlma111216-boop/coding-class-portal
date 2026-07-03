@@ -132,6 +132,21 @@ export default function Mod08() {
         질문에 답하며 내 수업의 아이디어를 Lovable이 이해하는 PRD로 만들어 봅니다.
       </KeyMessage>
 
+      <Section title="PRD란?">
+        <div className="grid sm:grid-cols-3 gap-3">
+          {[
+            ["P", "Product / 제품"],
+            ["R", "Requirements / 요구사항"],
+            ["D", "Document / 문서"],
+          ].map(([k, v]) => (
+            <div key={k} className="bg-surface-card rounded-lg p-6 text-center">
+              <div className="serif text-6xl text-coral leading-none mb-2">{k}</div>
+              <p className="text-sm text-body-strong">{v}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       <Stepper current={store.step} onJump={setStep} />
 
       <div className="mt-8">
