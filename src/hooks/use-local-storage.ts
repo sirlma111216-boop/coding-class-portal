@@ -83,10 +83,17 @@ export function useLocalStorage<T>(key: string, initial: T) {
         typeof next === "function" ? (next as (p: T) => T)(prev) : next;
       writeRaw(key, resolved);
     },
-    [key, initial],
+    // Intentionally omit `initial` — callers often pass a fresh object literal
+    // each render, which would make setValue unstable and cause effect loops.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [key],
   );
 
-  const reset = useCallback(() => writeRaw(key, initial), [key, initial]);
+  const reset = useCallback(
+    () => writeRaw(key, initial),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [key],
+  );
 
   return [value, setValue, { hydrated: true, reset }] as const;
 }
