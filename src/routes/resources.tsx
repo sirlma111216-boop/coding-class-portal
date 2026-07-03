@@ -680,13 +680,23 @@ ${simpleBundle
               <pre className="bg-surface-dark text-on-dark rounded-md p-3 text-xs leading-relaxed whitespace-pre-wrap font-mono overflow-x-auto flex-1 mb-3 max-h-48">
                 {r.body}
               </pre>
-              <button
-                onClick={() => copy(r.id, r.body)}
-                className="self-start inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md bg-coral text-white hover:bg-coral-active"
-              >
-                {copiedId === r.id ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                {copiedId === r.id ? "복사됨" : "복사하기"}
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => copy(r.id, r.body)}
+                  className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md bg-coral text-white hover:bg-coral-active"
+                >
+                  {copiedId === r.id ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedId === r.id ? "복사됨" : "복사하기"}
+                </button>
+                {r.filename && (
+                  <button
+                    onClick={() => downloadMarkdown(r.filename!, r.body)}
+                    className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md border border-hairline hover:bg-surface-card"
+                  >
+                    <Download className="w-3.5 h-3.5" /> .md 다운로드
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>
