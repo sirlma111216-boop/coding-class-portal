@@ -644,10 +644,11 @@ function OnboardForm(props: {
   setClassCode: (v: string) => void;
   nickname: string;
   setNickname: (v: string) => void;
-  affiliation: string;
-  setAffiliation: (v: string) => void;
-  role: "student" | "teacher" | "other";
-  setRole: (v: "student" | "teacher" | "other") => void;
+  onSubmit: (e: React.FormEvent) => void;
+  saving: boolean;
+}) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _noop = null;
   onSubmit: (e: React.FormEvent) => void;
   saving: boolean;
 }) {
