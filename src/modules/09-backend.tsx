@@ -12,6 +12,7 @@ import {
   ModuleNavigation,
   PracticePanel,
 } from "@/components/module-ui";
+import { CloudDbDemoSection } from "./09-cloud-demo";
 
 const m = moduleByNumber(9)!;
 
@@ -128,6 +129,9 @@ export default function Mod09() {
           </Link>
         </div>
       </Section>
+
+      <CloudDbDemoSection />
+
 
       <Section title="안전한 데이터 흐름">
         <div className="bg-surface-soft rounded-lg p-5 text-center font-mono text-sm leading-relaxed">
