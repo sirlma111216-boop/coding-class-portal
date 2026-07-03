@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Copy, CheckCheck, ExternalLink, Search, Download, Printer, X, ImageIcon } from "lucide-react";
+import { Copy, CheckCheck, ExternalLink, Search, Download, Printer, X, ImageIcon, FileText } from "lucide-react";
 import chatbotExample from "@/assets/ai-chatbot-example.png.asset.json";
+import {
+  exampleTermsMarkdown,
+  examplePrivacyMarkdown,
+  downloadMarkdown,
+} from "@/data/policies";
+import { FOOTER_PROMPT, EDIT_CHECKLIST, FINAL_CHECKLIST, attachInstructions } from "@/modules/12-policy-practice";
 
 type Category =
   | "전체"
@@ -26,7 +32,8 @@ type Resource = {
   body: string;
   moduleSlug?: string;
   moduleLabel?: string;
-  bundle?: "feedback" | "simple";
+  bundle?: "feedback" | "simple" | "policy";
+  filename?: string;
 };
 
 // ===== Module 7 bundle (AI 형성평가 피드백 도우미) =====
@@ -338,6 +345,36 @@ AI 역할: 입력을 분석해 JSON {encouragement, strength, improvement, nextA
 9. 학습 목표·기능 연결
 10. 외부 공유 범위 확인`,
   },
+  {
+    id: "policy-terms-example", title: "이용약관_예시.md", when: "앱 공개 직전에 이용약관을 만들 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "이용약관_예시.md",
+    body: exampleTermsMarkdown,
+  },
+  {
+    id: "policy-privacy-example", title: "개인정보처리방침_예시.md", when: "앱 공개 직전에 개인정보처리방침을 만들 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "개인정보처리방침_예시.md",
+    body: examplePrivacyMarkdown,
+  },
+  {
+    id: "policy-edit-checklist", title: "문서 수정 체크리스트", when: "예시 파일을 내 앱에 맞게 다듬을 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "문서_수정_체크리스트.md",
+    body: `# 문서 수정 체크리스트\n\n${EDIT_CHECKLIST.map((t, i) => `${i + 1}. ${t}`).join("\n")}\n`,
+  },
+  {
+    id: "policy-attach-guide", title: "Lovable 파일 첨부 방법", when: "수정한 두 파일을 Lovable에 보낼 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "Lovable_파일_첨부_방법.md",
+    body: attachInstructions,
+  },
+  {
+    id: "policy-footer-prompt", title: "공통 푸터 제작 영문 프롬프트", when: "이용약관·개인정보처리방침을 첨부하고 푸터를 요청할 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "공통_푸터_제작_프롬프트.md",
+    body: FOOTER_PROMPT,
+  },
+  {
+    id: "policy-final-check", title: "적용 후 최종 확인 체크리스트", when: "푸터 적용 결과를 점검할 때", category: "디지털 윤리",
+    moduleSlug: "12-digital-ethics", moduleLabel: "Module 12", bundle: "policy", filename: "적용_후_최종_확인_체크리스트.md",
+    body: `# 푸터 적용 후 확인할 것\n\n${FINAL_CHECKLIST.map((t, i) => `${i + 1}. ${t}`).join("\n")}\n`,
+  },
 ];
 
 const docs: Array<[string, string]> = [
@@ -412,8 +449,16 @@ ${simpleBundle
 `;
   }, [simpleBundle]);
 
+  const policyBundle = resources.filter((r) => r.bundle === "policy");
+  const policyBundleMarkdown = useMemo(() => {
+    return `# 이용약관·개인정보처리방침과 푸터 제작 — 자료 묶음\n\n> 공개 웹앱에 정책 문서와 공통 푸터를 추가하는 실습 자료입니다.\n\n${policyBundle
+      .map((r) => `\n## ${r.title}\n\n_언제 쓰나요:_ ${r.when}\n\n\`\`\`markdown\n${r.body}\n\`\`\`\n`)
+      .join("\n")}\n`;
+  }, [policyBundle]);
+
   const copyAllBundle = () => copy("bundle-all", bundleMarkdown);
   const copySimpleBundle = () => copy("simple-all", simpleMarkdown);
+  const copyPolicyBundle = () => copy("policy-all", policyBundleMarkdown);
 
   const downloadBundle = () => {
     const blob = new Blob([bundleMarkdown], { type: "text/markdown;charset=utf-8" });
@@ -527,6 +572,59 @@ ${simpleBundle
         </div>
       </section>
 
+      {/* Policy bundle actions */}
+      <section className="mb-10 bg-surface-cream-strong rounded-lg p-6">
+        <div className="flex items-start justify-between flex-wrap gap-3 mb-2">
+          <div>
+            <h2 className="serif text-2xl mb-1">이용약관·개인정보처리방침과 푸터 제작</h2>
+            <p className="text-sm text-body">
+              공개 웹앱에 정책 문서와 공통 푸터를 추가하는 실습 자료입니다.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-3">
+          <button
+            onClick={copyPolicyBundle}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-coral text-white hover:bg-coral-active"
+          >
+            {copiedId === "policy-all" ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copiedId === "policy-all" ? "복사됨" : "전체 복사"}
+          </button>
+          <button
+            onClick={() => downloadMarkdown("이용약관·개인정보처리방침_실습자료.md", policyBundleMarkdown)}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90"
+          >
+            <Download className="w-3.5 h-3.5" /> 전체 Markdown 다운로드
+          </button>
+          <Link
+            to="/modules/$slug"
+            params={{ slug: "12-digital-ethics" }}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md border border-hairline hover:bg-canvas"
+          >
+            실습 페이지로 이동 →
+          </Link>
+        </div>
+        <ul className="mt-4 grid sm:grid-cols-2 gap-2">
+          {policyBundle.map((r) => (
+            <li key={r.id} className="flex items-center justify-between gap-2 bg-canvas border border-hairline rounded-md px-3 py-2">
+              <span className="text-sm text-ink truncate">
+                <FileText className="w-3.5 h-3.5 inline mr-1 text-coral" />
+                {r.title}
+              </span>
+              <button
+                onClick={() => r.filename && downloadMarkdown(r.filename, r.body)}
+                className="text-xs px-2 py-1 rounded border border-hairline hover:bg-surface-card shrink-0"
+                aria-label={`${r.title} Markdown 다운로드`}
+              >
+                <Download className="w-3 h-3 inline mr-1" />.md
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+
+
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[220px]">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-text" />
@@ -582,13 +680,23 @@ ${simpleBundle
               <pre className="bg-surface-dark text-on-dark rounded-md p-3 text-xs leading-relaxed whitespace-pre-wrap font-mono overflow-x-auto flex-1 mb-3 max-h-48">
                 {r.body}
               </pre>
-              <button
-                onClick={() => copy(r.id, r.body)}
-                className="self-start inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md bg-coral text-white hover:bg-coral-active"
-              >
-                {copiedId === r.id ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                {copiedId === r.id ? "복사됨" : "복사하기"}
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => copy(r.id, r.body)}
+                  className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md bg-coral text-white hover:bg-coral-active"
+                >
+                  {copiedId === r.id ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedId === r.id ? "복사됨" : "복사하기"}
+                </button>
+                {r.filename && (
+                  <button
+                    onClick={() => downloadMarkdown(r.filename!, r.body)}
+                    className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md border border-hairline hover:bg-surface-card"
+                  >
+                    <Download className="w-3.5 h-3.5" /> .md 다운로드
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>
