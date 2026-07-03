@@ -93,58 +93,6 @@ export default function Mod11() {
         </ol>
       </Section>
 
-      <PracticePanel title="최종 프로젝트 워크시트 (자동 저장)">
-        <button onClick={importPrior} className="text-xs px-3 py-1.5 rounded-md bg-surface-card hover:bg-surface-cream-strong mb-3">
-          Module 2 · 8 답변 불러오기
-        </button>
-        <PrivacyNote />
-
-        <div className="grid sm:grid-cols-2 gap-3 mt-3">
-          <Field label="프로젝트 제목" value={project.title} onChange={(v) => update("title", v)} />
-          <Field label="교과·학년" value={project.subject} onChange={(v) => update("subject", v)} />
-          <Field label="주요 사용자" value={project.user} onChange={(v) => update("user", v)} />
-        </div>
-        <Field label="해결할 교실 문제" value={project.problem} onChange={(v) => update("problem", v)} rows={2} />
-
-        <div className="grid sm:grid-cols-3 gap-3 mt-3">
-          <Field label="핵심 기능 1" value={project.feature1} onChange={(v) => update("feature1", v)} />
-          <Field label="핵심 기능 2" value={project.feature2} onChange={(v) => update("feature2", v)} />
-          <Field label="핵심 기능 3" value={project.feature3} onChange={(v) => update("feature3", v)} />
-        </div>
-        <div className="grid sm:grid-cols-3 gap-3 mt-3">
-          <Field label="입력" value={project.input} onChange={(v) => update("input", v)} rows={2} />
-          <Field label="처리" value={project.process} onChange={(v) => update("process", v)} rows={2} />
-          <Field label="출력" value={project.output} onChange={(v) => update("output", v)} rows={2} />
-        </div>
-
-        <Field label="학생 경험은 어떻게 바뀌나요?" value={project.studentChange} onChange={(v) => update("studentChange", v)} rows={2} />
-        <Field label="윤리적 위험과 대응" value={project.ethical} onChange={(v) => update("ethical", v)} rows={2} />
-        <Field label="테스트 결과" value={project.testResult} onChange={(v) => update("testResult", v)} rows={2} />
-        <Field label="다음 개선 1순위" value={project.nextImprovement} onChange={(v) => update("nextImprovement", v)} rows={2} />
-
-        <h4 className="serif text-lg mt-5 mb-2">한 줄 요약 세 문장</h4>
-        <Field label="우리 수업의 문제는 ___였다." value={project.sentence1} onChange={(v) => update("sentence1", v)} />
-        <Field label="그래서 ___를 만들었다." value={project.sentence2} onChange={(v) => update("sentence2", v)} />
-        <Field label="학생 경험이 ___처럼 바뀔 것이다." value={project.sentence3} onChange={(v) => update("sentence3", v)} />
-
-        <div className="flex flex-wrap gap-2 mt-5">
-          <button onClick={() => copy(md, "md")} className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-coral text-white hover:bg-coral-active">
-            {copied === "md" ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            {copied === "md" ? "복사됨" : "Markdown 복사"}
-          </button>
-          <button onClick={downloadMd} className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md border border-hairline hover:bg-surface-card">
-            <Download className="w-3.5 h-3.5" /> .md 다운로드
-          </button>
-          <button onClick={() => copy(prompt, "prompt")} className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md border border-coral text-coral hover:bg-coral/5">
-            {copied === "prompt" ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            {copied === "prompt" ? "복사됨" : "러버블 빌드 프롬프트 복사"}
-          </button>
-          <button onClick={() => window.print()} className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md border border-hairline hover:bg-surface-card">
-            <Printer className="w-3.5 h-3.5" /> 1쪽 요약 인쇄
-          </button>
-        </div>
-      </PracticePanel>
-
       <Section title="자기 점검 루브릭">
         <ul className="space-y-2">
           {rubricAreas.map(([area, hint], i) => (
