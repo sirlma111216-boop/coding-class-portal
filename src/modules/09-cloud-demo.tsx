@@ -19,7 +19,6 @@ import {
 // -----------------------------------------------------------------
 type Participant = {
   id: string;
-  player_key: string;
   class_code: string;
   nickname: string;
 };
