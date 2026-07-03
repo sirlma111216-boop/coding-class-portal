@@ -126,16 +126,7 @@ export type Database = {
       }
     }
     Functions: {
-      find_demo_participant: {
-        Args: { _class_code: string; _player_key: string }
-        Returns: {
-          class_code: string
-          created_at: string
-          id: string
-          nickname: string
-          updated_at: string
-        }[]
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
