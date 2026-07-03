@@ -253,7 +253,7 @@ export function ModuleNavigation({ module }: { module: Module }) {
         }`}
       >
         <Check className="w-4 h-4" />
-        {done ? "완료 표시 취소" : "완료로 표시"}
+        {done ? "완료 표시 취소" : "완료 표시"}
       </button>
       {next ? (
         <Link
