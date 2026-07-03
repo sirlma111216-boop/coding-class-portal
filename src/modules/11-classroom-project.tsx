@@ -13,6 +13,7 @@ import {
   PrivacyNote,
 } from "@/components/module-ui";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { DesignPrepSection } from "./11-design-prep";
 
 const m = moduleByNumber(11)!;
 
@@ -220,6 +221,8 @@ export default function Mod11() {
           ))}
         </div>
       </Section>
+
+      <DesignPrepSection />
 
       <Section title="90분 프로젝트 보드">
         <ol className="space-y-2">
