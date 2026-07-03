@@ -10,6 +10,7 @@ import {
 } from "@/components/module-ui";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { DesignPrepSection } from "./11-design-prep";
+import { DeploySection } from "./11-deploy";
 
 const m = moduleByNumber(11)!;
 
