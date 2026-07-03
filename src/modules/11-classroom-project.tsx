@@ -10,6 +10,7 @@ import {
 } from "@/components/module-ui";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { DesignPrepSection } from "./11-design-prep";
+import { DeploySection } from "./11-deploy";
 
 const m = moduleByNumber(11)!;
 
@@ -131,6 +132,9 @@ export default function Mod11() {
           <li>학생 경험이 어떻게 달라지나요?</li>
         </ul>
       </Section>
+
+      <DeploySection />
+
 
       <InstructorTip>
         “세 문장 요약”을 발표하게 하세요. 발표가 안 되는 프로젝트는 아직 문제 정의가
