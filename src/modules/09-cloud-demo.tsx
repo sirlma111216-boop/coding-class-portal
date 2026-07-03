@@ -178,7 +178,7 @@ export function CloudDbDemoSection() {
       if (!code) return;
       setLoading(true);
       const [{ data: parts }, { data: recs }] = await Promise.all([
-        supabase.from("demo_participants").select("*").eq("class_code", code),
+        supabase.from("demo_participants_public").select("*").eq("class_code", code),
         supabase
           .from("demo_activity_records")
           .select("*")
