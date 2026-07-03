@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { findDemoParticipant } from "@/lib/demo-participants.functions";
 import { Section } from "@/components/module-ui";
 import { toast } from "sonner";
 import {
