@@ -31,7 +31,7 @@ export function SiteFooter() {
       >
         <div className="max-w-5xl mx-auto px-5 sm:px-8 py-2.5 sm:py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 sm:gap-4 text-[11px] sm:text-xs text-muted-text">
           {/* Left */}
-          <p className="text-left md:flex-1">
+          <p className="text-left md:shrink-0 whitespace-nowrap">
             © 2026 {SERVICE_NAME}. All rights reserved.
           </p>
 
@@ -43,7 +43,7 @@ export function SiteFooter() {
 
           {/* Right */}
           <nav
-            className="flex flex-wrap gap-x-4 gap-y-1 md:justify-end md:flex-1"
+            className="flex flex-wrap gap-x-4 gap-y-1 md:justify-end md:shrink-0"
             aria-label="법적 문서"
           >
             <button
