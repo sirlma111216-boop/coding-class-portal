@@ -225,12 +225,6 @@ export default function Mod11() {
         <ol className="space-y-2">
           {stages.map((s, i) => (
             <li key={s.name} className="flex items-start gap-3 p-4 bg-surface-soft rounded-md">
-              <input
-                type="checkbox"
-                checked={stagesDone[i]}
-                onChange={() => setStagesDone(stagesDone.map((v, idx) => (idx === i ? !v : v)))}
-                className="mt-1 accent-coral w-4 h-4"
-              />
               <span className="serif text-2xl text-coral leading-none w-12 shrink-0">{i + 1}</span>
               <div className="flex-1">
                 <div className="flex items-baseline justify-between gap-3 flex-wrap">
