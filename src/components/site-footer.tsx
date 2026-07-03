@@ -29,14 +29,14 @@ export function SiteFooter() {
         className="no-print border-t border-hairline bg-surface-cream-strong/50 mt-16"
         aria-label="사이트 정보"
       >
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-6 sm:py-7 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs sm:text-[13px] text-muted-text">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-2.5 sm:py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 sm:gap-4 text-[11px] sm:text-xs text-muted-text">
           {/* Left */}
           <p className="text-left md:flex-1">
             © 2026 {SERVICE_NAME}. All rights reserved.
           </p>
 
           {/* Center */}
-          <p className="text-left md:text-center md:flex-1 leading-relaxed break-words">
+          <p className="text-left md:text-center md:flex-1 whitespace-nowrap">
             개인정보책임자: {OFFICER_NAME} 교사 ({OFFICER_AFFILIATION}) | 문의:{" "}
             {OFFICER_CONTACT}
           </p>
