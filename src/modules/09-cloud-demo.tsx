@@ -542,10 +542,6 @@ export function CloudDbDemoSection() {
           setClassCode={setClassCode}
           nickname={nickname}
           setNickname={setNickname}
-          affiliation={affiliation}
-          setAffiliation={setAffiliation}
-          role={role}
-          setRole={setRole}
           onSubmit={handleJoin}
           saving={saving}
         />
