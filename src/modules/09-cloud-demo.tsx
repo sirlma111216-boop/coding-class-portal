@@ -22,8 +22,6 @@ type Participant = {
   player_key: string;
   class_code: string;
   nickname: string;
-  affiliation: string | null;
-  role: string;
 };
 
 type ActivityRecord = {
@@ -32,7 +30,6 @@ type ActivityRecord = {
   participant_id: string;
   class_code: string;
   nickname: string;
-  affiliation: string | null;
   score: number;
   correct_count: number;
   wrong_count: number;
@@ -60,8 +57,6 @@ const LS = {
   playerKey: "vibecoding:mod09:demo:playerKey",
   classCode: "vibecoding:mod09:demo:classCode",
   nickname: "vibecoding:mod09:demo:nickname",
-  affiliation: "vibecoding:mod09:demo:affiliation",
-  role: "vibecoding:mod09:demo:role",
 };
 
 function makeId(prefix = "id") {
@@ -127,8 +122,6 @@ export function CloudDbDemoSection() {
   // form
   const [classCode, setClassCode] = useState("");
   const [nickname, setNickname] = useState("");
-  const [affiliation, setAffiliation] = useState("");
-  const [role, setRole] = useState<"student" | "teacher" | "other">("student");
   const [saving, setSaving] = useState(false);
 
   // data
@@ -157,11 +150,6 @@ export function CloudDbDemoSection() {
     setPlayerKey(pk);
     setClassCode(localStorage.getItem(LS.classCode) ?? "");
     setNickname(localStorage.getItem(LS.nickname) ?? "");
-    setAffiliation(localStorage.getItem(LS.affiliation) ?? "");
-    const savedRole = localStorage.getItem(LS.role);
-    if (savedRole === "student" || savedRole === "teacher" || savedRole === "other") {
-      setRole(savedRole);
-    }
   }, []);
 
   // Try to find existing participant for this playerKey + classCode
@@ -287,8 +275,6 @@ export function CloudDbDemoSection() {
           player_key: playerKey,
           class_code: cc,
           nickname: nn,
-          affiliation: affiliation.trim() || null,
-          role,
           updated_at: new Date().toISOString(),
         },
         { onConflict: "player_key,class_code" },
@@ -302,8 +288,6 @@ export function CloudDbDemoSection() {
     }
     localStorage.setItem(LS.classCode, cc);
     localStorage.setItem(LS.nickname, nn);
-    localStorage.setItem(LS.affiliation, affiliation.trim());
-    localStorage.setItem(LS.role, role);
     setClassCode(cc);
     setMe(data as Participant);
     setStage("lobby");
@@ -387,7 +371,6 @@ export function CloudDbDemoSection() {
         participant_id: me.id,
         class_code: me.class_code,
         nickname: me.nickname,
-        affiliation: me.affiliation,
         score,
         correct_count: finalCorrect,
         wrong_count: finalWrong,
@@ -429,7 +412,6 @@ export function CloudDbDemoSection() {
       {
         participant_id: string;
         nickname: string;
-        affiliation: string | null;
         best: number;
         total: number;
         count: number;
@@ -444,7 +426,6 @@ export function CloudDbDemoSection() {
         map.set(r.participant_id, {
           participant_id: r.participant_id,
           nickname: r.nickname,
-          affiliation: r.affiliation,
           best: r.score,
           total: r.score,
           count: 1,
@@ -467,7 +448,6 @@ export function CloudDbDemoSection() {
         map.set(p.id, {
           participant_id: p.id,
           nickname: p.nickname,
-          affiliation: p.affiliation,
           best: 0,
           total: 0,
           count: 0,
@@ -562,10 +542,6 @@ export function CloudDbDemoSection() {
           setClassCode={setClassCode}
           nickname={nickname}
           setNickname={setNickname}
-          affiliation={affiliation}
-          setAffiliation={setAffiliation}
-          role={role}
-          setRole={setRole}
           onSubmit={handleJoin}
           saving={saving}
         />
@@ -668,10 +644,6 @@ function OnboardForm(props: {
   setClassCode: (v: string) => void;
   nickname: string;
   setNickname: (v: string) => void;
-  affiliation: string;
-  setAffiliation: (v: string) => void;
-  role: "student" | "teacher" | "other";
-  setRole: (v: "student" | "teacher" | "other") => void;
   onSubmit: (e: React.FormEvent) => void;
   saving: boolean;
 }) {
@@ -705,33 +677,6 @@ function OnboardForm(props: {
           placeholder="과학토끼"
           className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas"
         />
-      </Field>
-      <Field label="소속 또는 모둠 (선택)">
-        <input
-          value={props.affiliation}
-          onChange={(e) => props.setAffiliation(e.target.value)}
-          maxLength={20}
-          placeholder="예: 1모둠"
-          className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas"
-        />
-      </Field>
-      <Field label="역할">
-        <div className="flex gap-2">
-          {(["student", "teacher", "other"] as const).map((r) => (
-            <button
-              key={r}
-              type="button"
-              onClick={() => props.setRole(r)}
-              className={`text-xs px-3 py-1.5 rounded-md border ${
-                props.role === r
-                  ? "bg-coral text-white border-coral"
-                  : "border-hairline hover:bg-surface-soft"
-              }`}
-            >
-              {r === "student" ? "학생" : r === "teacher" ? "교사" : "기타"}
-            </button>
-          ))}
-        </div>
       </Field>
       <button
         type="submit"
@@ -777,7 +722,7 @@ function ClassHeader({
           <h3 className="serif text-2xl mt-0.5">클래스 {me.class_code} 데이터 현황</h3>
           <p className="text-xs text-white/70 mt-1">
             {me.nickname}
-            {me.affiliation ? ` · ${me.affiliation}` : ""} · 참가 중
+            · 참가 중
           </p>
         </div>
         <div className="flex gap-2">
@@ -1098,9 +1043,6 @@ function Leaderboard(props: {
                 <td className="py-2 pr-2 text-muted-text">{i + 1}</td>
                 <td className="py-2 pr-2 text-body-strong">
                   {p.nickname}
-                  {p.affiliation && (
-                    <span className="text-xs text-muted-text"> · {p.affiliation}</span>
-                  )}
                   {p.participant_id === props.meId && (
                     <span className="ml-2 text-[10px] bg-coral text-white px-1.5 py-0.5 rounded">
                       나
@@ -1142,7 +1084,7 @@ function aggType() {
   return [] as {
     participant_id: string;
     nickname: string;
-    affiliation: string | null;
+    
     best: number;
     total: number;
     count: number;

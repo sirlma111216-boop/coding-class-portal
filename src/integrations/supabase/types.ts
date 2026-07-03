@@ -17,7 +17,6 @@ export type Database = {
       demo_activity_records: {
         Row: {
           activity_session_id: string
-          affiliation: string | null
           class_code: string
           completed: boolean
           correct_count: number
@@ -31,7 +30,6 @@ export type Database = {
         }
         Insert: {
           activity_session_id: string
-          affiliation?: string | null
           class_code: string
           completed?: boolean
           correct_count?: number
@@ -45,7 +43,6 @@ export type Database = {
         }
         Update: {
           activity_session_id?: string
-          affiliation?: string | null
           class_code?: string
           completed?: boolean
           correct_count?: number
@@ -69,33 +66,27 @@ export type Database = {
       }
       demo_participants: {
         Row: {
-          affiliation: string | null
           class_code: string
           created_at: string
           id: string
           nickname: string
           player_key: string
-          role: string
           updated_at: string
         }
         Insert: {
-          affiliation?: string | null
           class_code: string
           created_at?: string
           id?: string
           nickname: string
           player_key: string
-          role?: string
           updated_at?: string
         }
         Update: {
-          affiliation?: string | null
           class_code?: string
           created_at?: string
           id?: string
           nickname?: string
           player_key?: string
-          role?: string
           updated_at?: string
         }
         Relationships: []
