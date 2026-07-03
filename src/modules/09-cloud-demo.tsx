@@ -22,8 +22,6 @@ type Participant = {
   player_key: string;
   class_code: string;
   nickname: string;
-  affiliation: string | null;
-  role: string;
 };
 
 type ActivityRecord = {
@@ -32,7 +30,6 @@ type ActivityRecord = {
   participant_id: string;
   class_code: string;
   nickname: string;
-  affiliation: string | null;
   score: number;
   correct_count: number;
   wrong_count: number;
