@@ -275,8 +275,6 @@ export function CloudDbDemoSection() {
           player_key: playerKey,
           class_code: cc,
           nickname: nn,
-          affiliation: affiliation.trim() || null,
-          role,
           updated_at: new Date().toISOString(),
         },
         { onConflict: "player_key,class_code" },
@@ -290,8 +288,6 @@ export function CloudDbDemoSection() {
     }
     localStorage.setItem(LS.classCode, cc);
     localStorage.setItem(LS.nickname, nn);
-    localStorage.setItem(LS.affiliation, affiliation.trim());
-    localStorage.setItem(LS.role, role);
     setClassCode(cc);
     setMe(data as Participant);
     setStage("lobby");
