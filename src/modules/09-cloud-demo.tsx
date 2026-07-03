@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { findDemoParticipant } from "@/lib/demo-participants.functions";
 import { Section } from "@/components/module-ui";
 import { toast } from "sonner";
 import {
@@ -157,12 +158,9 @@ export function CloudDbDemoSection() {
     const savedClass = localStorage.getItem(LS.classCode);
     if (!savedClass) return;
     (async () => {
-      const { data } = await supabase
-        .rpc("find_demo_participant", {
-          _player_key: playerKey,
-          _class_code: savedClass,
-        })
-        .maybeSingle();
+      const data = await findDemoParticipant({
+        data: { playerKey, classCode: savedClass },
+      });
       if (data) {
         setMe(data as Participant);
         setStage("lobby");
@@ -269,12 +267,9 @@ export function CloudDbDemoSection() {
     // Participants are insert-only. Look up an existing row for this
     // (player_key, class_code); if none, insert a new one.
     let participant: Participant | null = null;
-    const { data: existing } = await supabase
-      .rpc("find_demo_participant", {
-        _player_key: playerKey,
-        _class_code: cc,
-      })
-      .maybeSingle();
+    const existing = await findDemoParticipant({
+      data: { playerKey, classCode: cc },
+    });
     if (existing) {
       participant = existing as Participant;
     } else {
