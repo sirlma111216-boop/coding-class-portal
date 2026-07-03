@@ -1,17 +1,4 @@
-import { useMemo, useState } from "react";
-import { Copy, CheckCheck, Download, Printer } from "lucide-react";
-import { moduleByNumber } from "@/data/course";
-import {
-  ModuleHeader,
-  Section,
-  LearningObjectives,
-  KeyMessage,
-  InstructorTip,
-  CompletionChecklist,
-  ModuleNavigation,
-  PracticePanel,
-  PrivacyNote,
-} from "@/components/module-ui";
+import { Section } from "@/components/module-ui";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { DesignPrepSection } from "./11-design-prep";
 
