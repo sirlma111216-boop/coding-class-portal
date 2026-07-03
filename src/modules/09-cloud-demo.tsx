@@ -267,29 +267,39 @@ export function CloudDbDemoSection() {
       return;
     }
     setSaving(true);
-    // upsert on (player_key, class_code)
-    const { data, error } = await supabase
+    // Participants are insert-only. Look up an existing row for this
+    // (player_key, class_code); if none, insert a new one.
+    let participant: Participant | null = null;
+    const { data: existing } = await supabase
       .from("demo_participants")
-      .upsert(
-        {
+      .select("*")
+      .eq("player_key", playerKey)
+      .eq("class_code", cc)
+      .maybeSingle();
+    if (existing) {
+      participant = existing as Participant;
+    } else {
+      const { data: inserted, error } = await supabase
+        .from("demo_participants")
+        .insert({
           player_key: playerKey,
           class_code: cc,
           nickname: nn,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: "player_key,class_code" },
-      )
-      .select()
-      .single();
-    setSaving(false);
-    if (error || !data) {
-      toast.error("참여 정보 저장에 실패했어요.");
-      return;
+        })
+        .select()
+        .single();
+      if (error || !inserted) {
+        setSaving(false);
+        toast.error("참여 정보 저장에 실패했어요.");
+        return;
+      }
+      participant = inserted as Participant;
     }
+    setSaving(false);
     localStorage.setItem(LS.classCode, cc);
     localStorage.setItem(LS.nickname, nn);
     setClassCode(cc);
-    setMe(data as Participant);
+    setMe(participant);
     setStage("lobby");
   }
 
