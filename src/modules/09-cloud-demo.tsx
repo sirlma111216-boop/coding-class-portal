@@ -270,10 +270,10 @@ export function CloudDbDemoSection() {
     // (player_key, class_code); if none, insert a new one.
     let participant: Participant | null = null;
     const { data: existing } = await supabase
-      .from("demo_participants")
-      .select("*")
-      .eq("player_key", playerKey)
-      .eq("class_code", cc)
+      .rpc("find_demo_participant", {
+        _player_key: playerKey,
+        _class_code: cc,
+      })
       .maybeSingle();
     if (existing) {
       participant = existing as Participant;
@@ -285,7 +285,7 @@ export function CloudDbDemoSection() {
           class_code: cc,
           nickname: nn,
         })
-        .select()
+        .select("id, class_code, nickname, created_at, updated_at")
         .single();
       if (error || !inserted) {
         setSaving(false);
