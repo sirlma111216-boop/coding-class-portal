@@ -6,40 +6,17 @@ import gd02 from "@/assets/gd02.png.asset.json";
 import gd03 from "@/assets/gd03.png.asset.json";
 import gd04 from "@/assets/gd04.png.asset.json";
 
-const designPrompt = `Use the attached DESIGN.md as the visual design reference for this project.
+const designPrompt = `첨부한 DESIGN.md를 이 프로젝트의 디자인 기준으로 사용해줘.
+색상, 글꼴, 간격, 카드와 버튼 스타일을 참고해서 지금 앱에 자연스럽게 적용해줘.
+기존 기능과 콘텐츠, 화면 구성은 그대로 두고, 모든 문구는 한국어로 유지해줘.
+원본 사이트의 로고, 브랜드 이름, 이미지는 복제하지 마.`;
 
-Apply its:
-- color palette
-- typography hierarchy
-- spacing system
-- layout principles
-- card and button styles
-- borders and shadows
-- responsive behavior
+const fontPrompt = `첨부한 폰트 파일을 이 프로젝트에 적용해줘.
+폰트 이름: [다운로드한 폰트 이름]
+제목과 주요 섹션에만 이 폰트를 사용하고, 본문은 읽기 쉬운 한글 폰트를 유지해줘.
+한글이 없는 폰트라면 영문에만 사용하고 한글은 기본 폰트로 남겨줘.
+기존 레이아웃과 기능은 바꾸지 말고, 모바일에서도 잘 보이게 해줘.`;
 
-Adapt the design to this Korean educational web app.
-
-Important:
-- Keep all existing content and functionality.
-- Do not copy the reference brand's logo, name, images, or proprietary text.
-- Use the design principles only as a visual reference.
-- Keep all visible UI text in Korean.
-- Do not change unrelated features or pages.`;
-
-const fontPrompt = `Use the attached font files in this project.
-
-Font name:
-[다운로드한 폰트 이름]
-
-Requirements:
-- Register the attached font correctly using @font-face.
-- Use the font for the main headings and important section titles.
-- Keep the body text highly readable in Korean.
-- Add appropriate fallback fonts.
-- Do not change the existing layout, content, or functionality.
-- Keep all visible UI text in Korean.
-- Make sure the font works on both desktop and mobile.
-- If the attached font does not contain Korean characters, use it only for English text and use a readable Korean fallback font for Korean text.`;
 
 const steps = [
   {
@@ -182,16 +159,16 @@ function DesignModal({ onClose }: { onClose: () => void }) {
               원본 사이트의 로고, 브랜드 이름, 사진과 콘텐츠를 그대로 복제하지 마세요.
             </p>
 
-            {steps.map((s) => (
+            {steps.map((s, i) => (
               <div key={s.title} className="bg-surface-card rounded-lg p-4 sm:p-5">
                 <h4 className="serif text-lg text-ink">{s.title}</h4>
                 <p className="text-sm text-body mt-1">{s.desc}</p>
                 <button
                   onClick={() => setLightbox({ src: s.img, alt: s.alt })}
-                  className="block w-full mt-3 rounded-md overflow-hidden bg-canvas border border-hairline hover:border-coral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral"
+                  className={`block mt-3 rounded-md overflow-hidden bg-canvas border border-hairline hover:border-coral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral ${i === 3 ? "max-w-[180px]" : "w-full"}`}
                   aria-label={`${s.alt} — 확대`}
                 >
-                  <img src={s.img} alt={s.alt} className="w-full h-auto object-contain max-h-[420px] mx-auto" loading="lazy" />
+                  <img src={s.img} alt={s.alt} className={`w-full h-auto object-contain mx-auto ${i === 3 ? "max-h-[100px]" : "max-h-[420px]"}`} loading="lazy" />
                 </button>
                 {s.link && (
                   <a
