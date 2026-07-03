@@ -11,6 +11,7 @@ import {
   PracticePanel,
 } from "@/components/module-ui";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { PolicyPractice } from "./12-policy-practice";
 import { Shield, Key, AlertOctagon, Scale, Copyright, Accessibility, GraduationCap } from "lucide-react";
 
 const m = moduleByNumber(12)!;
@@ -207,6 +208,10 @@ export default function Mod12() {
           </ul>
         </div>
       </Section>
+
+      <PolicyPractice />
+
+
 
       <section className="bg-coral text-white rounded-lg p-8 sm:p-12 my-10 text-center">
         <p className="serif text-2xl sm:text-3xl leading-snug mb-3">
