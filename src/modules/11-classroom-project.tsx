@@ -133,6 +133,9 @@ export default function Mod11() {
         </ul>
       </Section>
 
+      <DeploySection />
+
+
       <InstructorTip>
         “세 문장 요약”을 발표하게 하세요. 발표가 안 되는 프로젝트는 아직 문제 정의가
         부족합니다.
