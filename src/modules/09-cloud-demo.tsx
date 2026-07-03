@@ -678,32 +678,6 @@ function OnboardForm(props: {
           className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas"
         />
       </Field>
-      <Field label="소속 또는 모둠 (선택)">
-        <input
-          value={props.affiliation}
-          onChange={(e) => props.setAffiliation(e.target.value)}
-          maxLength={20}
-          placeholder="예: 1모둠"
-          className="w-full px-3 py-2 rounded-md border border-hairline bg-canvas"
-        />
-      </Field>
-      <Field label="역할">
-        <div className="flex gap-2">
-          {(["student", "teacher", "other"] as const).map((r) => (
-            <button
-              key={r}
-              type="button"
-              onClick={() => props.setRole(r)}
-              className={`text-xs px-3 py-1.5 rounded-md border ${
-                props.role === r
-                  ? "bg-coral text-white border-coral"
-                  : "border-hairline hover:bg-surface-soft"
-              }`}
-            >
-              {r === "student" ? "학생" : r === "teacher" ? "교사" : "기타"}
-            </button>
-          ))}
-        </div>
       </Field>
       <button
         type="submit"
