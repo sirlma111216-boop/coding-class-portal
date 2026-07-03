@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Copy, CheckCheck, ExternalLink, Search, Download, Printer, X, ImageIcon } from "lucide-react";
+import { Copy, CheckCheck, ExternalLink, Search, Download, Printer, X, ImageIcon, FileText } from "lucide-react";
 import chatbotExample from "@/assets/ai-chatbot-example.png.asset.json";
+import {
+  exampleTermsMarkdown,
+  examplePrivacyMarkdown,
+  downloadMarkdown,
+} from "@/data/policies";
+import { FOOTER_PROMPT, EDIT_CHECKLIST, FINAL_CHECKLIST, attachInstructions } from "@/modules/12-policy-practice";
 
 type Category =
   | "전체"
@@ -26,7 +32,8 @@ type Resource = {
   body: string;
   moduleSlug?: string;
   moduleLabel?: string;
-  bundle?: "feedback" | "simple";
+  bundle?: "feedback" | "simple" | "policy";
+  filename?: string;
 };
 
 // ===== Module 7 bundle (AI 형성평가 피드백 도우미) =====
