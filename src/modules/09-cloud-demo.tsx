@@ -371,7 +371,6 @@ export function CloudDbDemoSection() {
         participant_id: me.id,
         class_code: me.class_code,
         nickname: me.nickname,
-        affiliation: me.affiliation,
         score,
         correct_count: finalCorrect,
         wrong_count: finalWrong,
