@@ -158,9 +158,13 @@ export default function Mod08() {
             prd={store.teacherPrd}
             onImport={importModule2}
             onEdit={setPrd}
+            onManualEdit={(patch) =>
+              setStore({ ...store, module2Imported: { ...store.module2Imported, ...patch } })
+            }
             onNext={() => setStep(2)}
           />
         )}
+
         {store.step === 2 && (
           <Step2
             prd={store.teacherPrd}
