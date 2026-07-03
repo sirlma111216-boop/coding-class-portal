@@ -647,11 +647,6 @@ function OnboardForm(props: {
   onSubmit: (e: React.FormEvent) => void;
   saving: boolean;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _noop = null;
-  onSubmit: (e: React.FormEvent) => void;
-  saving: boolean;
-}) {
   return (
     <form
       onSubmit={props.onSubmit}
