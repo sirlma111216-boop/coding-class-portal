@@ -426,7 +426,6 @@ export function CloudDbDemoSection() {
         map.set(r.participant_id, {
           participant_id: r.participant_id,
           nickname: r.nickname,
-          nickname: r.nickname,
           best: r.score,
           total: r.score,
           count: 1,
@@ -449,7 +448,7 @@ export function CloudDbDemoSection() {
         map.set(p.id, {
           participant_id: p.id,
           nickname: p.nickname,
-          affiliation: p.affiliation,
+          nickname: p.nickname,
           best: 0,
           total: 0,
           count: 0,
