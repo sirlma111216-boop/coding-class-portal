@@ -4,6 +4,7 @@ import { Menu, X, Home, BookOpen, RotateCcw, Type, Printer, Play } from "lucide-
 import { courseMeta, modules, phases } from "@/data/course";
 import { useProgress } from "@/hooks/use-progress";
 import { useFontSize } from "@/hooks/use-font-size";
+import { SiteFooter } from "./site-footer";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -79,7 +80,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
         </aside>
 
-        <main className="flex-1 lg:ml-80 min-w-0">{children}</main>
+        <main className="flex-1 lg:ml-80 min-w-0 flex flex-col">
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
+        </main>
       </div>
     </div>
   );
