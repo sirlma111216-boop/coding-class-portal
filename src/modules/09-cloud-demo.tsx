@@ -19,7 +19,6 @@ import {
 // -----------------------------------------------------------------
 type Participant = {
   id: string;
-  player_key: string;
   class_code: string;
   nickname: string;
 };
@@ -159,10 +158,10 @@ export function CloudDbDemoSection() {
     if (!savedClass) return;
     (async () => {
       const { data } = await supabase
-        .from("demo_participants")
-        .select("*")
-        .eq("player_key", playerKey)
-        .eq("class_code", savedClass)
+        .rpc("find_demo_participant", {
+          _player_key: playerKey,
+          _class_code: savedClass,
+        })
         .maybeSingle();
       if (data) {
         setMe(data as Participant);
@@ -179,7 +178,7 @@ export function CloudDbDemoSection() {
       if (!code) return;
       setLoading(true);
       const [{ data: parts }, { data: recs }] = await Promise.all([
-        supabase.from("demo_participants").select("*").eq("class_code", code),
+        supabase.from("demo_participants_public").select("*").eq("class_code", code),
         supabase
           .from("demo_activity_records")
           .select("*")
@@ -271,10 +270,10 @@ export function CloudDbDemoSection() {
     // (player_key, class_code); if none, insert a new one.
     let participant: Participant | null = null;
     const { data: existing } = await supabase
-      .from("demo_participants")
-      .select("*")
-      .eq("player_key", playerKey)
-      .eq("class_code", cc)
+      .rpc("find_demo_participant", {
+        _player_key: playerKey,
+        _class_code: cc,
+      })
       .maybeSingle();
     if (existing) {
       participant = existing as Participant;
@@ -286,7 +285,7 @@ export function CloudDbDemoSection() {
           class_code: cc,
           nickname: nn,
         })
-        .select()
+        .select("id, class_code, nickname, created_at, updated_at")
         .single();
       if (error || !inserted) {
         setSaving(false);
