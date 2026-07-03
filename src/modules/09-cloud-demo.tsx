@@ -122,8 +122,6 @@ export function CloudDbDemoSection() {
   // form
   const [classCode, setClassCode] = useState("");
   const [nickname, setNickname] = useState("");
-  const [affiliation, setAffiliation] = useState("");
-  const [role, setRole] = useState<"student" | "teacher" | "other">("student");
   const [saving, setSaving] = useState(false);
 
   // data
