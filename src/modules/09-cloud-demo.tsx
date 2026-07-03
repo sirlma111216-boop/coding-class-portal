@@ -412,7 +412,6 @@ export function CloudDbDemoSection() {
       {
         participant_id: string;
         nickname: string;
-        affiliation: string | null;
         best: number;
         total: number;
         count: number;
