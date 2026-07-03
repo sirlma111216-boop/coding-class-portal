@@ -17,12 +17,19 @@ const m = moduleByNumber(2)!;
 
 type Answers = { repeatTime: string; studentStuck: string; toolGap: string };
 
+const EMPTY: Answers = { repeatTime: "", studentStuck: "", toolGap: "" };
+
 export default function Mod02() {
-  const [a, setA] = useLocalStorage<Answers>("vibecoding:mod02:bottleneck", {
-    repeatTime: "",
-    studentStuck: "",
-    toolGap: "",
-  });
+  const [draft, setDraft] = useLocalStorage<Answers>("vibecoding:mod02:bottleneck:draft", EMPTY);
+  const [saved, setSaved] = useLocalStorage<Answers>("vibecoding:mod02:bottleneck", EMPTY);
+  const a = draft;
+  const setA = setDraft;
+  const isSaved =
+    saved.repeatTime === draft.repeatTime &&
+    saved.studentStuck === draft.studentStuck &&
+    saved.toolGap === draft.toolGap &&
+    (draft.repeatTime || draft.studentStuck || draft.toolGap);
+
 
   return (
     <article className="max-w-4xl mx-auto px-5 sm:px-8 py-10">
