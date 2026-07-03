@@ -722,7 +722,7 @@ function ClassHeader({
           <h3 className="serif text-2xl mt-0.5">클래스 {me.class_code} 데이터 현황</h3>
           <p className="text-xs text-white/70 mt-1">
             {me.nickname}
-            {me.affiliation ? ` · ${me.affiliation}` : ""} · 참가 중
+            · 참가 중
           </p>
         </div>
         <div className="flex gap-2">
