@@ -241,13 +241,15 @@ function Step1({
   onNext: () => void;
 }) {
   const wasImported = !!(imported.repeatTime || imported.studentStuck || imported.toolGap);
+  const [manualMode, setManualMode] = useState(false);
+  const showEmpty = !hasMod02 && !wasImported && !manualMode;
 
   return (
     <StepShell
       title="모듈 2에서 정리한 수업 문제 가져오기"
       description="앞에서 작성한 수업의 병목과 앱 아이디어를 PRD의 출발점으로 활용합니다."
     >
-      {!hasMod02 && !wasImported ? (
+      {showEmpty ? (
         <div className="bg-surface-card rounded-lg p-6 mb-6">
           <p className="text-sm text-body mb-4">
             저장된 모듈 2 내용이 없습니다. 모듈 2를 먼저 작성하거나, 이 단계에서 직접 입력할 수 있습니다.
@@ -260,19 +262,21 @@ function Step1({
             >
               모듈 2로 이동
             </Link>
-            <button onClick={onNext} className="text-sm px-4 py-2 rounded-md border border-hairline hover:bg-surface-card">
+            <button onClick={() => setManualMode(true)} className="text-sm px-4 py-2 rounded-md border border-hairline hover:bg-surface-card">
               직접 작성하기
             </button>
           </div>
         </div>
       ) : (
         <>
-          <button
-            onClick={onImport}
-            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90 mb-4"
-          >
-            <Sparkles className="w-3.5 h-3.5" /> 모듈 2 내용 불러오기
-          </button>
+          {hasMod02 && (
+            <button
+              onClick={onImport}
+              className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90 mb-4"
+            >
+              <Sparkles className="w-3.5 h-3.5" /> 모듈 2 내용 불러오기
+            </button>
+          )}
 
           {wasImported && (
             <div className="bg-surface-cream-strong border border-coral/20 rounded-lg p-5 mb-6">
@@ -288,13 +292,43 @@ function Step1({
             </div>
           )}
 
+          {manualMode && !wasImported && (
+            <div className="bg-surface-cream-strong border border-coral/20 rounded-lg p-5 mb-6 space-y-3">
+              <h3 className="serif text-lg">수업 문제 직접 입력하기</h3>
+              <p className="text-xs text-muted-text">
+                모듈 2에서 다룬 세 가지 질문에 답해 보세요. 아래 PRD 작성에도 반영됩니다.
+              </p>
+              <Field
+                label="수업에서 반복되는 업무나 부담"
+                value={imported.repeatTime}
+                onChange={(v) => onManualEdit({ repeatTime: v })}
+                rows={2}
+                hint="예: 매주 형성평가 답변에 개별 피드백을 남기는 데 오랜 시간이 걸린다."
+              />
+              <Field
+                label="학생들이 자주 막히는 지점"
+                value={imported.studentStuck}
+                onChange={(v) => onManualEdit({ studentStuck: v })}
+                rows={2}
+                hint="예: 답을 왜 그렇게 썼는지 스스로 설명하지 못한다."
+              />
+              <Field
+                label="기존 도구(학습지, LMS 등)의 한계"
+                value={imported.toolGap}
+                onChange={(v) => onManualEdit({ toolGap: v })}
+                rows={2}
+                hint="예: 정오만 알려주고, 다음에 무엇을 학습해야 하는지 안내가 없다."
+              />
+            </div>
+          )}
+
           <div className="space-y-3">
             <Field
-              label="해결하려는 문제 (모듈 2 반영, 수정 가능)"
+              label="해결하려는 문제"
               value={prd.problem}
               onChange={(v) => onEdit({ problem: v })}
               rows={2}
-              hint="모듈 2의 내용을 바탕으로 자신의 언어로 다듬어 보세요."
+              hint="위 내용을 바탕으로 자신의 언어로 다듬어 보세요."
             />
             <Field
               label="기대하는 수업의 변화"
@@ -311,6 +345,7 @@ function Step1({
     </StepShell>
   );
 }
+
 
 function ImportedRow({ label, value }: { label: string; value: string }) {
   return (
