@@ -17,12 +17,19 @@ const m = moduleByNumber(2)!;
 
 type Answers = { repeatTime: string; studentStuck: string; toolGap: string };
 
+const EMPTY: Answers = { repeatTime: "", studentStuck: "", toolGap: "" };
+
 export default function Mod02() {
-  const [a, setA] = useLocalStorage<Answers>("vibecoding:mod02:bottleneck", {
-    repeatTime: "",
-    studentStuck: "",
-    toolGap: "",
-  });
+  const [draft, setDraft] = useLocalStorage<Answers>("vibecoding:mod02:bottleneck:draft", EMPTY);
+  const [saved, setSaved] = useLocalStorage<Answers>("vibecoding:mod02:bottleneck", EMPTY);
+  const a = draft;
+  const setA = setDraft;
+  const isSaved =
+    saved.repeatTime === draft.repeatTime &&
+    saved.studentStuck === draft.studentStuck &&
+    saved.toolGap === draft.toolGap &&
+    (draft.repeatTime || draft.studentStuck || draft.toolGap);
+
 
   return (
     <article className="max-w-4xl mx-auto px-5 sm:px-8 py-10">
@@ -115,8 +122,35 @@ export default function Mod02() {
             </label>
           ))}
         </div>
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setSaved({ ...draft })}
+            className="text-sm px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90"
+          >
+            저장하기
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (confirm("입력한 내용을 모두 초기화할까요?")) {
+                setDraft(EMPTY);
+                setSaved(EMPTY);
+              }
+            }}
+            className="text-sm px-4 py-2 rounded-md border border-hairline hover:bg-surface-card"
+          >
+            초기화
+          </button>
+          <span className="text-xs text-muted-text">
+            {isSaved
+              ? "✓ 저장됨 — 모듈 8에서 불러올 수 있습니다."
+              : "저장 전에는 모듈 8에서 불러오기가 되지 않습니다."}
+          </span>
+        </div>
         <PrivacyNote />
       </PracticePanel>
+
 
       <InstructorTip>
         “기존 에듀테크가 부족했던 경험”을 두세 분에게 꼭 공유하게 합니다. 이 발화가
