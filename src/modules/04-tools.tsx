@@ -614,11 +614,6 @@ function ToolDetailModal({ tool, onClose }: { tool: Tool | null; onClose: () => 
               「{PATH_LABEL[tool.learningPath]}」 학습 경로에서 이 도구를 이어서 학습할 수 있습니다.
             </p>
           </section>
-          {tool.status === "coming" && (
-            <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-sm">
-              이 과정은 현재 준비 중입니다. 준비가 완료되면 학습 페이지가 열립니다.
-            </div>
-          )}
         </div>
 
         <div className="mt-8 pt-4 border-t border-hairline flex flex-wrap gap-2 justify-end">
