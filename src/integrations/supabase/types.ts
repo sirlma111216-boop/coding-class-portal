@@ -62,6 +62,13 @@ export type Database = {
             referencedRelation: "demo_participants"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "demo_activity_records_participant_id_fkey"
+            columns: ["participant_id"]
+            isOneToOne: false
+            referencedRelation: "demo_participants_public"
+            referencedColumns: ["id"]
+          },
         ]
       }
       demo_participants: {
@@ -93,10 +100,42 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      demo_participants_public: {
+        Row: {
+          class_code: string | null
+          created_at: string | null
+          id: string | null
+          nickname: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          class_code?: string | null
+          created_at?: string | null
+          id?: string | null
+          nickname?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          class_code?: string | null
+          created_at?: string | null
+          id?: string | null
+          nickname?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      find_demo_participant: {
+        Args: { _class_code: string; _player_key: string }
+        Returns: {
+          class_code: string
+          created_at: string
+          id: string
+          nickname: string
+          updated_at: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
