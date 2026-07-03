@@ -572,6 +572,59 @@ ${simpleBundle
         </div>
       </section>
 
+      {/* Policy bundle actions */}
+      <section className="mb-10 bg-surface-cream-strong rounded-lg p-6">
+        <div className="flex items-start justify-between flex-wrap gap-3 mb-2">
+          <div>
+            <h2 className="serif text-2xl mb-1">이용약관·개인정보처리방침과 푸터 제작</h2>
+            <p className="text-sm text-body">
+              공개 웹앱에 정책 문서와 공통 푸터를 추가하는 실습 자료입니다.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-3">
+          <button
+            onClick={copyPolicyBundle}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-coral text-white hover:bg-coral-active"
+          >
+            {copiedId === "policy-all" ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copiedId === "policy-all" ? "복사됨" : "전체 복사"}
+          </button>
+          <button
+            onClick={() => downloadMarkdown("이용약관·개인정보처리방침_실습자료.md", policyBundleMarkdown)}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90"
+          >
+            <Download className="w-3.5 h-3.5" /> 전체 Markdown 다운로드
+          </button>
+          <Link
+            to="/modules/$slug"
+            params={{ slug: "12-digital-ethics" }}
+            className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-md border border-hairline hover:bg-canvas"
+          >
+            실습 페이지로 이동 →
+          </Link>
+        </div>
+        <ul className="mt-4 grid sm:grid-cols-2 gap-2">
+          {policyBundle.map((r) => (
+            <li key={r.id} className="flex items-center justify-between gap-2 bg-canvas border border-hairline rounded-md px-3 py-2">
+              <span className="text-sm text-ink truncate">
+                <FileText className="w-3.5 h-3.5 inline mr-1 text-coral" />
+                {r.title}
+              </span>
+              <button
+                onClick={() => r.filename && downloadMarkdown(r.filename, r.body)}
+                className="text-xs px-2 py-1 rounded border border-hairline hover:bg-surface-card shrink-0"
+                aria-label={`${r.title} Markdown 다운로드`}
+              >
+                <Download className="w-3 h-3 inline mr-1" />.md
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+
+
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[220px]">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-text" />
