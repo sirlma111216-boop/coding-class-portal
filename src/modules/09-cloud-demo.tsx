@@ -150,11 +150,6 @@ export function CloudDbDemoSection() {
     setPlayerKey(pk);
     setClassCode(localStorage.getItem(LS.classCode) ?? "");
     setNickname(localStorage.getItem(LS.nickname) ?? "");
-    setAffiliation(localStorage.getItem(LS.affiliation) ?? "");
-    const savedRole = localStorage.getItem(LS.role);
-    if (savedRole === "student" || savedRole === "teacher" || savedRole === "other") {
-      setRole(savedRole);
-    }
   }, []);
 
   // Try to find existing participant for this playerKey + classCode
