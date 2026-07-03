@@ -158,12 +158,9 @@ export function CloudDbDemoSection() {
     const savedClass = localStorage.getItem(LS.classCode);
     if (!savedClass) return;
     (async () => {
-      const { data } = await supabase
-        .rpc("find_demo_participant", {
-          _player_key: playerKey,
-          _class_code: savedClass,
-        })
-        .maybeSingle();
+      const data = await findDemoParticipant({
+        data: { playerKey, classCode: savedClass },
+      });
       if (data) {
         setMe(data as Participant);
         setStage("lobby");
