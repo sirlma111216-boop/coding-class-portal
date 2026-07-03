@@ -423,7 +423,7 @@ const TOOLS: Tool[] = [
 ];
 
 // ============================================================
-// 2. Small primitives
+// 2. Small primitives & derivations
 // ============================================================
 
 function ToolBadge({ text, status }: { text: string; status: Status }) {
@@ -438,38 +438,83 @@ function ToolBadge({ text, status }: { text: string; status: Status }) {
   );
 }
 
+function getLevelLabel(tool: Tool): string {
+  const override: Record<string, string> = {
+    "claude-artifacts": "입문",
+    "google-ai-studio": "초급",
+    "lovable": "초급",
+    "replit-agent": "중급",
+    "cursor": "중급",
+    "claude-code": "고급",
+  };
+  if (override[tool.id]) return override[tool.id];
+  if (tool.codingLevel <= 0) return "입문";
+  if (tool.codingLevel === 1) return "초급";
+  if (tool.codingLevel <= 3) return "중급";
+  return "고급";
+}
+
+function getCategoryLabel(tool: Tool): string {
+  const override: Record<string, string> = {
+    "claude-artifacts": "AI 프로토타이핑",
+    "google-ai-studio": "AI 프로토타이핑",
+    "lovable": "노코드 웹앱",
+    "canva-code": "수업 콘텐츠 제작",
+    "replit-agent": "노코드 웹앱",
+    "antigravity": "코드 기반 개발",
+    "codex": "코드 기반 개발",
+    "cursor": "코드 기반 개발",
+    "claude-code": "개발 환경",
+    "power-apps": "노코드 웹앱",
+    "power-automate": "자동화",
+    "ms365-integration": "노코드 웹앱",
+    "appsheet": "노코드 웹앱",
+    "apps-script": "자동화",
+    "google-integration": "노코드 웹앱",
+  };
+  return override[tool.id] ?? "노코드 웹앱";
+}
+
+const OFFICIAL_URLS: Record<string, string> = {
+  "canva-code": "https://www.canva.com/",
+  "claude-artifacts": "https://claude.ai/",
+  "google-ai-studio": "https://aistudio.google.com/",
+  "lovable": "https://lovable.dev/",
+  "replit-agent": "https://replit.com/",
+  "cursor": "https://cursor.com/",
+  "claude-code": "https://www.anthropic.com/claude-code",
+  "codex": "https://openai.com/",
+  "power-apps": "https://powerapps.microsoft.com/",
+  "power-automate": "https://powerautomate.microsoft.com/",
+  "appsheet": "https://about.appsheet.com/",
+  "apps-script": "https://script.google.com/",
+};
 
 // ============================================================
-// 3. Tool Card
+// 3. Tool Card — simplified
 // ============================================================
 
 function ToolCard({ tool, onOpen }: { tool: Tool; onOpen: (t: Tool) => void }) {
   return (
-    <div className="bg-canvas border border-hairline rounded-lg p-5 hover:border-coral/40 transition-colors flex flex-col min-h-[340px]">
-      <div className="flex items-center justify-between mb-2 gap-2">
-        <h3 className="serif text-xl">{tool.name}</h3>
-        <ToolBadge text={tool.badge} status={tool.status} />
+    <div className="bg-canvas border border-hairline rounded-lg p-5 hover:border-coral/40 transition-colors flex flex-col min-h-[220px]">
+      <div className="flex items-start justify-between mb-3 gap-2">
+        <h3 className="serif text-xl leading-tight">{tool.name}</h3>
+        <span className="text-[10px] uppercase tracking-widest font-medium px-2 py-0.5 rounded-pill bg-coral/10 text-coral whitespace-nowrap">
+          {getLevelLabel(tool)}
+        </span>
       </div>
-      <p className="text-sm text-body mb-4 leading-relaxed">{tool.oneLine}</p>
-      <dl className="text-xs space-y-1.5 text-body mb-4">
-        <div><dt className="inline text-muted-text">추천 작업 · </dt><dd className="inline">{tool.bestFor}</dd></div>
-        <div><dt className="inline text-muted-text">난이도 · </dt><dd className="inline">{tool.difficulty}</dd></div>
-        <div><dt className="inline text-muted-text">결과물 · </dt><dd className="inline">{tool.result}</dd></div>
-        <div><dt className="inline text-muted-text">주의 · </dt><dd className="inline">{tool.caution}</dd></div>
-      </dl>
-      <div className="flex flex-wrap gap-1 mb-4">
-        {tool.tags.slice(0, 3).map((t) => (
-          <span key={t} className="text-[11px] px-2 py-0.5 rounded-pill bg-surface-card text-muted-text">
-            {t}
-          </span>
-        ))}
+      <p className="text-sm text-body mb-4 leading-relaxed line-clamp-2">{tool.oneLine}</p>
+      <div className="mb-4">
+        <span className="text-[11px] px-2 py-0.5 rounded-pill bg-surface-card text-muted-text">
+          {getCategoryLabel(tool)}
+        </span>
       </div>
       <div className="mt-auto">
         <button
           onClick={() => onOpen(tool)}
-          className="w-full text-sm font-medium px-3 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90 transition-colors"
+          className="w-full h-10 text-sm font-medium px-3 rounded-md bg-ink text-canvas hover:bg-ink/90 transition-colors"
         >
-          {tool.status === "ready" ? "학습 시작" : "도구 소개 보기"}
+          도구 소개 보기
         </button>
       </div>
     </div>
@@ -485,26 +530,37 @@ function ToolDetailModal({ tool, onClose }: { tool: Tool | null; onClose: () => 
     if (!tool) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
   }, [tool, onClose]);
 
   if (!tool) return null;
+  const officialUrl = OFFICIAL_URLS[tool.id];
   return (
     <div
-      className="fixed inset-0 z-50 bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-ink/60 backdrop-blur-sm flex items-end sm:items-center justify-center sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="bg-canvas max-w-2xl w-full max-h-[85vh] overflow-y-auto rounded-xl p-8"
+        className="bg-canvas w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-xl p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between mb-4 gap-3">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <ToolBadge text={tool.badge} status={tool.status} />
-              <span className="text-xs text-muted-text">{PATH_LABEL[tool.learningPath]}</span>
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-[10px] uppercase tracking-widest font-medium px-2 py-0.5 rounded-pill bg-coral/10 text-coral">
+                {getLevelLabel(tool)}
+              </span>
+              <span className="text-[11px] px-2 py-0.5 rounded-pill bg-surface-card text-muted-text">
+                {getCategoryLabel(tool)}
+              </span>
+              {tool.status === "coming" && <ToolBadge text="준비 중" status="coming" />}
             </div>
             <h3 className="serif text-2xl">{tool.name}</h3>
           </div>
@@ -527,24 +583,61 @@ function ToolDetailModal({ tool, onClose }: { tool: Tool | null; onClose: () => 
             <p className="leading-relaxed">{tool.recommendedFor}</p>
           </section>
           <section>
-            <p className="text-xs uppercase tracking-widest text-muted-text mb-1">앞으로 제공할 학습 내용</p>
+            <p className="text-xs uppercase tracking-widest text-muted-text mb-1">잘 맞는 작업</p>
+            <p className="leading-relaxed">{tool.bestFor}</p>
+          </section>
+          <section>
+            <p className="text-xs uppercase tracking-widest text-muted-text mb-1">만들 수 있는 결과물</p>
+            <p className="leading-relaxed">{tool.result}</p>
+          </section>
+          <section>
+            <p className="text-xs uppercase tracking-widest text-muted-text mb-1">기본 사용 흐름</p>
             <p className="leading-relaxed">{tool.learningPlan}</p>
           </section>
           <section className="grid sm:grid-cols-2 gap-3">
-            <div className="p-3 bg-surface-card rounded-lg">
-              <p className="text-xs text-muted-text mb-0.5">난이도</p>
-              <p className="text-sm">{tool.difficulty}</p>
+            <div className="p-4 bg-surface-card rounded-lg">
+              <p className="text-xs uppercase tracking-widest text-muted-text mb-2">장점</p>
+              <ul className="text-sm space-y-1 list-disc pl-4">
+                {tool.tags.slice(0, 4).map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
             </div>
-            <div className="p-3 bg-surface-card rounded-lg">
-              <p className="text-xs text-muted-text mb-0.5">결과물</p>
-              <p className="text-sm">{tool.result}</p>
+            <div className="p-4 bg-surface-card rounded-lg">
+              <p className="text-xs uppercase tracking-widest text-muted-text mb-2">한계와 주의할 점</p>
+              <p className="text-sm leading-relaxed">{tool.caution}</p>
             </div>
+          </section>
+          <section>
+            <p className="text-xs uppercase tracking-widest text-muted-text mb-1">관련 학습 내용</p>
+            <p className="leading-relaxed">
+              「{PATH_LABEL[tool.learningPath]}」 학습 경로에서 이 도구를 이어서 학습할 수 있습니다.
+            </p>
           </section>
           {tool.status === "coming" && (
             <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-sm">
               이 과정은 현재 준비 중입니다. 준비가 완료되면 학습 페이지가 열립니다.
             </div>
           )}
+        </div>
+
+        <div className="mt-8 pt-4 border-t border-hairline flex flex-wrap gap-2 justify-end">
+          {officialUrl && (
+            <a
+              href={officialUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-sm font-medium px-4 py-2 rounded-md border border-hairline hover:bg-surface-card"
+            >
+              공식 사이트 보기
+            </a>
+          )}
+          <button
+            onClick={onClose}
+            className="text-sm font-medium px-4 py-2 rounded-md bg-ink text-canvas hover:bg-ink/90"
+          >
+            닫기
+          </button>
         </div>
       </div>
     </div>
