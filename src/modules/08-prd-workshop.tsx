@@ -234,7 +234,7 @@ function Stepper({ current, onJump }: { current: number; onJump: (n: number) => 
 
 // ===== Step 1 =====
 function Step1({
-  hasMod02, mod02, imported, prd, onImport, onEdit, onNext,
+  hasMod02, mod02, imported, prd, onImport, onEdit, onManualEdit, onNext,
 }: {
   hasMod02: boolean;
   mod02: Module2Context;
@@ -242,8 +242,10 @@ function Step1({
   prd: TeacherPrd;
   onImport: () => void;
   onEdit: (p: Partial<TeacherPrd>) => void;
+  onManualEdit: (p: Partial<Module2Context>) => void;
   onNext: () => void;
 }) {
+
   const wasImported = !!(imported.repeatTime || imported.studentStuck || imported.toolGap);
   const [manualMode, setManualMode] = useState(false);
   const showEmpty = !hasMod02 && !wasImported && !manualMode;
